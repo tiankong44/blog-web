@@ -3,13 +3,30 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
-
-export default new Router({
+//const Demo_table = () => import("@/components/demo/table");
+const router = new Router({
+  mode: "hash",
+  base: "/myblog/",
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
-})
+      path: "/mockHome",
+      component: mockHome,
+      children: [
+        {
+          path: "/system",
+          component: system,
+        },
+
+      ],
+    },
+    {
+      path: "/",
+      name: "mockHome",
+      component: mockHome,
+    },
+
+ 
+  ],
+});
+
+export default router;

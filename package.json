@@ -7,14 +7,18 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "unit": "jest --config test/unit/jest.conf.js --coverage",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "build": "node build/build.js"
+    "build": "node build/build.js --report"
   },
   "dependencies": {
+    "axios": "^0.20.0",
+    "babel-polyfill": "^6.26.0",
+    "compression-webpack-plugin": "1.1.12",
+    "element-ui": "^2.13.2",
+    "prettier": "^2.0.5",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.5.1",
+    "webpack-dev-server": "^2.9.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -61,7 +65,7 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1",
+    "webpack-dev-server": "^2.9.6",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
