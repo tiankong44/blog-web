@@ -1,9 +1,13 @@
 // 接口请求统一管理
-const api = {
-  //  queryUserInfo: '/geopop/loginInfoQuery',
+const blogapi = {
  
-  
+  getNewFiveBlog:'/blog/getNewFiveBlog',
+  getNewFiveCommentBlog:'/blog/getNewFiveCommentBlog',
+  getTopFiveViewBlog:'/blog/getTopFiveViewBlog',
+  getBlogList:'/blog/blogList',
+  getTagList:'/blog/tagList',
+  getBlogListByTagId:'/blog/tag',
   };
   
-  export { mockapi };
+  export { blogapi };
   

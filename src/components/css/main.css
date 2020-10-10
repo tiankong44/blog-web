@@ -1,0 +1,269 @@
+/*边界线*/
+.my-border {
+  border: 1px solid #ced0d2
+}
+
+/*文本*/
+.my-text-nav {
+  font-size: 30px;
+}
+
+.my-text {
+  font-size: 18px;
+}
+
+.my-text-introduction {
+  font-size: 20px;
+  opacity: 0.7
+}
+
+.blog-title {
+  font-size: 20px;
+  opacity: 0.9;
+  color: #000000;
+}
+
+.blogpage-title {
+  text-align: center;
+  font-size: 24px;
+  text-shadow: 3px 2px 4px #000000;
+}
+
+.blogpage-content {
+
+  opacity: 0.9;
+  padding: 10px 30px 5px 30px;
+
+}
+
+.blogpage-content h6 {
+  font-size: .63em;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.blogpage-content h5 {
+  font-size: .83em;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.blogpage-content h4 {
+  font-size: 1em;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.blogpage-content h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.blogpage-content h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.blogpage-content h1 {
+  font-size: 2em;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.blogpage-content ol li {
+  display: list-item;
+  list-style-type: decimal;
+
+  /*  list-style-position:inside;*/
+
+  font-size: 16px;
+}
+
+.blogpage-content ul li {
+  display: list-item;
+  list-style-type: disc;
+  /* list-style-position:inside;*/
+  font-size: 16px;
+
+}
+
+.blogpage-content ul li ol li {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: inside;
+  font-size: 16px;
+}
+
+.blogpage-content ol li ul li {
+  display: list-item;
+  list-style-type: disc;
+  /* list-style: disc;*/
+  list-style-position: inside;
+  font-size: 16px;
+}
+
+.blogpage-content ol li ol li {
+  display: list-item;
+  list-style-type: disc;
+  /* list-style: disc;*/
+  list-style-position: inside;
+  font-size: 16px;
+}
+
+.blogpage-content ul li ul li {
+  display: list-item;
+  list-style-type: disc;
+  /* list-style: disc;*/
+  list-style-position: inside;
+  font-size: 16px;
+}
+
+.blogpage-content p {
+  font-size: 16px;
+
+}
+
+.precontent-opacity {
+  font-size: 16px;
+  opacity: 0.7
+}
+
+.opacity-min {
+  font-size: 15px;
+  opacity: 0.7
+}
+
+.recommend-text {
+  font-size: 14px;
+  opacity: 0.9;
+  color: #000000;
+}
+
+.opacity-min-mintext {
+  font-size: 15px !important;
+  opacity: 0.5
+}
+
+.opacity-full {
+  font-size: 16px;
+  opacity: 1
+}
+
+.opacity-tiny {
+  opacity: 0.3;
+  font-size: 15px;
+}
+
+.red-text {
+  color: red;
+}
+
+.location-center {
+  text-align: center;
+}
+
+.padding-left {
+  padding-left: 20%;
+}
+
+.padding-tiny {
+  padding-left: 2%;
+}
+
+.padding-small {
+  padding-left: 5%;
+}
+
+.header-text {
+  font-size: 20px;
+
+}
+
+.tiny-text {
+  font-size: 15px;
+}
+
+.header-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hide {
+  opacity: 0;
+}
+
+
+.router-link-active {
+  text-decoration: none;
+}
+
+.green-text{
+  color:green;
+}
+
+/* ===========
+	工具样式
+	
+   =========== */
+
+/*置右*/
+/*头像*/
+.pic-head {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.pic-index {
+  padding: 0 0 15px 30px;
+  width: 200px;
+  height: 150px;
+}
+
+.pic-title {
+  padding: 10px 10px 10px 100px;
+  width: 650px;
+  height: 400px;
+}
+
+.albums {}
+
+.gallery {
+  width: 90px;
+  height: 70px;
+}
+
+.layer-photos-demo img {
+  width: 260px;
+  height: 200px;
+  padding: 0 10px 10px 10px;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+/* 置左*/
+.pull-left {
+  float: left !important;
+}
+
+
+/* ==============
+	自定义页面样式
+   ============== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  /* background: url("../images/email-pattern.png") */
+}
+
+/* 网站头部 */

@@ -58,22 +58,17 @@ axios.interceptors.response.use(
 function postJson(method, param) {
   return new Promise((resolve, reject) => {
     // 根据jcf对接口请求封装
-    let opInfo = {
-      ip: "127.0.0.1",
-      op_time: "2020-07-08 14:49:39",
-    };
-
-    let postParam = { body: param, opInfo: opInfo };
-    loading(true);
+    // let postParam = { };
+    
     axios
-      .post(method, postParam)
+      .post(method, param)
       .then((res) => {
         resolve(res.data);
         loading(false);
       })
       .catch((err) => {
         reject(err.data);
-        loading(false);
+  
       });
   });
 }
@@ -84,7 +79,7 @@ function postJson(method, param) {
  */
 function getJson(method, param) {
   return new Promise((resolve, reject) => {
-    loading(true);
+
     axios
       .get(method, {
         params: param,
@@ -95,7 +90,7 @@ function getJson(method, param) {
       })
       .catch((err) => {
         reject(err.data);
-        loading(false);
+
       });
   });
 }

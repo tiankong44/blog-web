@@ -7,12 +7,12 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import store from "./store";
 import { request } from "@/common/utils/request";
-import { mockapi } from "@/common/config/api.js";
+import { blogapi } from "@/common/config/api.js";
 
 Vue.use(ElementUI);
 Vue.use(ElementUI, { size: "small", zIndex: 3000 });
 Vue.prototype.request = request;
-Vue.prototype.mockapi = mockapi;
+Vue.prototype.blogapi = blogapi;
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

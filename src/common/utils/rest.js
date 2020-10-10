@@ -1,9 +1,9 @@
 import { request } from "@/common/utils/request";
-import { mockapi } from "@/common/config/api.js";
+import { blogapi } from "@/common/config/api.js";
 import { _tiper } from "@/common/utils/ui";
 
 export function dictQuery(dictObj, cbEvent) {
-  request.postJson(mockapi.dictQuery,dictObj).then(res=>{
+  request.postJson(blogapi.dictQuery,dictObj).then(res=>{
     if(res.code == "0"){
       cbEvent(res.data);
     }else{
