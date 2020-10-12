@@ -1,0 +1,68 @@
+**SVN**：[http://172.18.238.62:9001/svn/repos_m2m/trunk/code/车务通北京物联网平台/mysql-version/](http://172.18.238.62:9001/svn/repos_m2m/trunk/code/车务通北京物联网平台/mysql-version/)
+
+**车务通测试环境地址：**
+[http://172.18.51.142:8103/web/pages/index.html](http://172.18.51.142:8103/web/pages/index.html ) 
+
+**语音对讲**
+
+[ https://172.18.51.142:9443/web/pages/index.html](https://172.18.51.142:9443/web/pages/index.html)
+
+```
+账号：16610000114
+密码：123qaz
+```
+
+**原型**
+地址：[https://7n8vnx.axshare.com](https://7n8vnx.axshare.com ) 
+
+```
+密码：xxskcxxdgjcg
+```
+
+**服务器**
+
+```
+地址：172.18.51.142
+账户：tiang
+密码：cwtapp!@
+路径：/oncon/tiangcloud/cwt
+```
+
+**YAPI文档接口**: [http://172.18.51.203:3000/project/18/interface/api](http://172.18.51.203:3000/project/18/interface/api)
+**易信车联下载地址**：[http://eip.teamshub.com/t/4682134](http://eip.teamshub.com/t/4682134)
+
+**EA下载**：[http://eip.teamshub.com/t/4263993](http://eip.teamshub.com/t/4263993)              
+
+**流程审批配置：**                                       
+
+```
+400272248 用车
+400272246 加油
+400272243 维修
+400272245 保养
+```
+
+```
+type： 1  用车 2  加油 3 维修 4 保养
+```
+
+**北京云平台carmanage：**
+
+地址：[北京云平台carmanage](http://car.teamshub.com/carmanage)
+
+```
+	账号：cqadmin
+	密码：yxcl2019~!@
+	
+	账号：test
+	密码：xjyd@ddmm123
+```
+
+```properties
+#快速休眠  win + L 
+```
+
+```
+http://localhost:8080/carmanage/page/testmodule/testmodule.do?action=queryModule&corpNO=2518
+http://localhost:8080/carmanage/page/testmodule/testmodule.do
+```
