@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://www.on-con.com/vpn/windowsVPN.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+<title>Windows配置VPN</title>
+<link href="./Windows配置VPN_files/reset.css" rel="stylesheet" type="text/css">
+<link href="./Windows配置VPN_files/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--header-->
+<!--<div class="xm-header">
+    易信VPN指南
+    <a class="back" href="index.html"><img src="images/back.png"/></a>
+</div>-->
+<div class="container-fruilt mg60">
+		<h2 class="tc">Win10安装易信vpn步骤</h2>
+		<p>1.左键 网络图标---网络和intenetr设置--vpn---添加vpn链接，预共享密钥：vpn，用户名填写易信手机号， 密码填写  易信密码， 其他请按图填写</p>
+		<img src="./Windows配置VPN_files/win10_1.png">
+		<img src="./Windows配置VPN_files/win10_2.png">
+		<p>2.点击页面下面的---- 更改适配器选项</p>
+		<img src="./Windows配置VPN_files/win10_3.png">
+		<p>3.右键  “teamshub vpn” 网络连接名--点击： 属性---常规----安全---网络</p>
+		<img src="./Windows配置VPN_files/win10_4.png">
+		<p>3.1.属性---安全</p>
+		<img src="./Windows配置VPN_files/win10_5.png">
+		<p>3.2.属性---安全--高级设置：密钥vpn</p>
+		<img src="./Windows配置VPN_files/win10_6.png">
+		<p>3.3.属性--网络：点击 属性</p>
+		<img src="./Windows配置VPN_files/win10_7.png">
+		<img src="./Windows配置VPN_files/win10_8.png">
+		<p>3.4. 点击  高级</p>
+		<img src="./Windows配置VPN_files/win10_9.png">
+		<p>4.启动<br>点击 左下角 网络图标----teamshub vpn----连接</p>
+		<p>5.内外同时连接<br>右键vpn.bat---以管理员身份运行， 按任意键继续</p>
+		
+		<h2 class="tc">Windows7 L2TP VPN配置</h2>
+        <p>1.初始配置：<br>右键单击Windows屏幕底部右侧的网络图标，点击“打开网络和共享中心”。</p>
+        <img src="./Windows配置VPN_files/win1.png">
+        <p>点击“设置新的连接或网络”。</p>
+        <img src="./Windows配置VPN_files/win2.png">
+        <p>选择“连接到工作场所”。</p>
+        <img src="./Windows配置VPN_files/win3.png">
+    <p>选择“否，创建新连接”。</p>
+    <img src="./Windows配置VPN_files/win4.png">
+    <img src="./Windows配置VPN_files/win5.png">
+	<p>你必须输入vpn服务器的IP地址或VPN主机名vpn.teamshub.com。勾选“现在不连接”</p>
+	<img src="./Windows配置VPN_files/win6.png">
+    <p>输入vpn服务器的域名，勾选“现在不连接”</p>
+    <img src="./Windows配置VPN_files/win6.png">
+    <p>输入易信用户名和密码。你应该选中“记住此密码”。点击“创建”</p>
+    <img src="./Windows配置VPN_files/win7.png">
+    <p>&nbsp;点击“关闭”</p>
+    <img src="./Windows配置VPN_files/win8.png">
+    <p>进入“网络和共享中心”，单击“更改适配器设置”。</p>
+    <img src="./Windows配置VPN_files/win9.png">
+    <p>右键单击上一步中创建的vpn图标，点击“属性”。<br>
+	在“属性”窗口，常规选项卡中填入vpn服务器主机名vpn.teamshub.com,<br>
+	切换到<span style="color:blue;"><b>“安全”</b></span>选项卡，（在Windows XP中，切换到“网络”选项卡）。
+        <span style="color:blue;"><b>“VPN类型“</b></span>选择<span style="color:red;">“<b>使用IPSec的2层隧道协议（L2TP/IPSec）</b>”</span>。
+       <span style="color:blue;"><b>“数据加密“</b></span>选择<span style="color:red;">”<b>可选加密（没有加密也可以连接）</b>“</span>，
+        点选<span style="color:blue;"><b>“允许使用这些协议“</b></span>，勾选<span style="color:red;">”<b>质询握手身份验证协议（CHAP）(H)</b>“</span>, <span style="color:red;">”<b>Microsoft CHAP版本…………</b>“</span></p>
+    <img src="./Windows配置VPN_files/win10.png">
+	<img src="./Windows配置VPN_files/win11.png">
+    <p>下一步，单击<span style="color:blue;"><b>“高级设置”</b></span>按钮。（在Windows XP中，单击“安全设置”的“安全”选项卡。）
+        输入预共享密钥的<span style="color:red;">“<b>vpn</b>”</span>。</p>
+    <img src="./Windows配置VPN_files/win12.png">
+	<p>选择“网络”，选择“internet协议版本4（TCP/IPV4）”，点击“属性”---“高级”，勾选“在远程网络上使用默认网关”----“确定”</p>
+	    <img src="./Windows配置VPN_files/win13.png">
+
+    <p>以上配置完成后，单击“确定”。</p>
+	<p>右键易信vpn连接名---属性---网络---internet协议版本4---属性---高级---ip设置---取消 ”在远程网络使用默认网关” , 启动易信vpn后, 右键----以管理员身份运行 vpn.bat文件, 按任意键继续即可</p>
+	
+    <br>
+	 <!-- <h2 class="tc">Windows 创建VPN连接方法</h2>
+<P>双击创建VPN连接设置，</br>
+    输入“用户名”和“密码”。</br>
+    单击“连接”按钮启动VPN连接。</p>
+    <img src="images/win14.png"/>
+    <p>如果出现错误，确认你的设置，确保VPN类型是“L2TP/IPSec”，和预共享密钥是正确的。</p>
+    <img src="images/win15.png"/>
+    <p>如果VPN连接成功建立，单击Windows屏幕右下角的网络图标，VPN连接图标的状态应该是“已连接”。</p>
+    <img src="images/win16.png"/>
+	<p>需要启用的协议为chap 和mschap，服务需要开启ike and authip ipsec 和 ipsec policy agent，win7 的客户端设置遇到难题，xp下正常链接时，win7出现789问题反馈，查了点网页，最终在飞鱼星路由器的问题库中找到了相关设置，贴出来看看</p>
+	</br>
+	 <span style="font-weight:bold;">错误789：
+	</br>L2TP连接尝试失败，因为安全层在初始化与远程计算机的协商时遇到一个出来错误</br>1.原理说明：</br>
+    </span>
+	<p>要配置两台通过 LAN 连接的、基于 Windows 2000 的路由和远程访问服务服务器，使它们使用一个采用预共享密钥身份验证的 L2TP/IPSec 连接，必须向 L2TP/IPSec 连接上的每台基于 Windows 2000 的终结点计算机添加 ProhibitIpSec 注册表值，以防止创建用于 L2TP/IPSec 通信的自动筛选器。ProhibitIpSec 注册表值设置为 1 时，基于 Windows 2000 的计算机不会创建使用 CA 身份验证的自动筛选器，而是检查本地 IPSec 策略或 Active Directory IPSec 策略。
+	微软参考文档：http://support.microsoft.com/kb/240262/zh-cn
+	</p>
+	<span style="font-weight:bold;">2.解决方法：</br>A、Windows2000/XP系统</span>
+	<p>要向基于 Windows 2000/XP 的计算机添加 ProhibitIpSec 注册表值，请按照下列步骤操作：</br>
+1)单击“开始”，单击“运行”，键入 regedt32，然后单击“确定”。</br>
+2)找到下面的注册表子项，然后单击它：</br>
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Rasman\Parameters</br>
+3)在“编辑”菜单上，单击“添加值”。</br>
+4)在“值名称”框中，键入 ProhibitIpSec。</br>
+5)在“数据类型”列表中，单击“REG_DWORD”，然后单击“确定”。</br>
+6)在“数据”框中，键入 1，然后单击“确定”。</br>
+7)退出注册表编辑器，然后重新启动计算机。</p>
+<span style="font-weight:bold;">B、Windows Vista/7系统</span>
+<p>Window Vista/7系统下设置于XP类似，也可以按照下面方法，直接导入注册表文件方式处理。</p>
+<p style="font-weight:bold;">1)新建文本文档，复制以下代码到文件中：</p>
+<p>Windows Registry Editor Version 5.00</br>
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan\Parameters]
+"Medias"=hex(7):72,00,61,00,73,00,74,00,61,00,70,00,69,00,00,00,00,00
+"ServiceDll"=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,\
+00,74,00,25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,\
+72,00,61,00,73,00,6d,00,61,00,6e,00,73,00,2e,00,64,00,6c,00,6c,00,00,00
+"IpOutLowWatermark"=dword:00000001
+"IpOutHighWatermark"=dword:00000005
+"ProhibitIpSec"=dword:00000001
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan\Parameters\Quarantine]
+"Enabled"=dword:00000001
+"AutoRefreshEnabled"=dword:00000000
+"AutoRefreshTimeout"=dword:01808580
+"WorkItemTimeout"=dword:00000bb8
+</p>
+<p style="font-weight:bold;">2)修改文件后缀名为.reg文件，双击导入，重启电脑。</p> -->
+ <h2 class="tc">WINXP使用L2TP VPN配置</h2>
+ <p>第1步：右击<span style="color:blue">【网上邻居】</span>，然后单击<span style="color:blue;">【属性】</span></p>
+ <img src="./Windows配置VPN_files/wxp1.png">
+ <p>第2步：单击<span style="color:blue">【创建一个新的连接】</span></p>
+ <img src="./Windows配置VPN_files/wxp2.png">
+ <p>第3步：单击<span style="color:blue">【下一步】</span></p>
+ <img src="./Windows配置VPN_files/wxp3.png">
+ <p>第4步：选择<span style="color:blue">【连接到我的工作场所的网络】</span>，然后单击<span style="color:blue">【下一步】</span></p>
+ <img src="./Windows配置VPN_files/wxp4.png">
+ <p>第5步：选择<span style="color:blue">【虚拟专用网络连接】</span>，然后单击<span style="color:blue">【下一步】</span></p>
+  <img src="./Windows配置VPN_files/wxp5.png">
+<p>第6步：输入公司名，如：suvpn&nbsp;可以自定义，然后单击<span style="color:blue">【下一步】</span></p>
+  <img src="./Windows配置VPN_files/wxp6.png">
+<p>第7步：如果出现此步骤，选择<span style="color:blue">【不拨初始连接】</span>，单击<span style="color:blue">【下一步】</span>，如无此步骤，请略过！</p>
+  <img src="./Windows配置VPN_files/wxp7.png">
+  <p>第8步：设置<span style="color:blue">【主机名或IP地址（服务器列表请点击这里查看）】</span>，单击<span style="color:blue">【下一步】</span></p>
+    <img src="./Windows配置VPN_files/wxp8.png">
+<p>第9步：勾选<span style="color:blue">【在我的桌面上添加一个到此连接的快捷方式】</span>，方便下次连接，然后单击<span style="color:blue">【完成】</span></p>
+    <img src="./Windows配置VPN_files/wxp9.png">
+<p>第10步：单击<span style="color:blue">【属性】</span></p>
+    <img src="./Windows配置VPN_files/wxp10.png">
+<p>第11步：选择<span style="color:blue">【网络】</span>标签，VPN类型选择<span style="color:blue">【L2TP IPSec VPN】</span></p>
+    <img src="./Windows配置VPN_files/wxp11.png">
+<p>第12步：选择<span style="color:blue">【安全】</span>标签，点击<span style="color:blue">【IPSec设置...】</span>，在弹出的IPSec设置窗口中勾选使用预共享的密钥作身份验证<span style="color:blue">【密钥：vpn】</span>，然后单击<span style="color:blue">【确定】</span></p>
+    <img src="./Windows配置VPN_files/wxp12.png">
+<p>第13步：设置<span style="color:blue">【用户名（您在VPN上注册的用户名）】、【密码（您在VPN上注册的密码）】</span>，勾选<span style="color:blue">【为下面用户保存用户名或密码】</span>方便下次连接，然后单击<span style="color:blue">【连接】</span>即可连接VPN网络。</p>
+    <img src="./Windows配置VPN_files/wxp13.png">
+<p>如通过以上设置，在连接VPN时仍出现如下错误提示界面：</p>
+    <img src="./Windows配置VPN_files/wxp14.png">
+<p>请务必考虑拨入计算机是否已启用IPSEC Services服务。<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</b>要成功建立L2TP IPSEC VPN，在以上配置基础上还需将拨入计算机的IPSEC Services服务启用才行。<br>&nbsp;&nbsp;&nbsp;&nbsp;
+具体需将开始》控制面板》管理工具》服务》IPSEC Services 协议的启动类型修改成手动，然后启用即可，具体界面如下：</p>
+    <img src="./Windows配置VPN_files/wxp15.png">
+<p>一定把ipsec服务开启，否则不成功</p>
+</div><remove-web-limits-iqxin id="rwl-iqxin" class="rwl-exempt" style="position: fixed; top: 666px; left: 0px;"><qxinbutton type="qxinbutton" id="rwl-setbtn"> set </qxinbutton> <lalala style="cursor:move; font-size:12px;">限制解除</lalala> <input type="checkbox" name="" id="black_node"><style type="text/css">#rwl-iqxin{position:fixed;transform:translate(-95px,0);width:85px;height:25px;font-size:12px;font-weight: 500;font-family:Verdana, Arial, '宋体';color:#fff;background:#333;z-index:2147483647;margin: 0;opacity:0.05;transition:0.3s;overflow:hidden;user-select:none;text-align:center;white-space:nowrap;line-height:25px;padding:0 16px;border:1px solid #ccc;border-width:1px 1px 1px 0;border-bottom-right-radius:5px;box-sizing: content-box;}#rwl-iqxin input{margin: 0;padding: 0;vertical-align:middle;-webkit-appearance:checkbox;-moz-appearance:checkbox;position: static;clip: auto;opacity: 1;cursor: pointer;}#rwl-iqxin.rwl-active-iqxin{left: 0px;transform:translate(0,0);opacity: 0.9;height: 32px;line-height: 32px}#rwl-iqxin label{margin:0;padding:0;font-weight:500;}#rwl-iqxin #rwl-setbtn{margin: 0 4px 0 0;padding: 0 0 0 4px;border: none;border-radius: 2px;cursor: pointer;background: #fff;color: #000;} </style></remove-web-limits-iqxin>
+<!--<div class="xm-footer">
+    <ul>
+        <li class="border-r">
+            <a class="bg-f" href="#">Windows VPN</a>
+        </li>
+        <li class="border-r ">
+            <a  href="iphoneVPN.html">苹果 VPN</a>
+        </li>
+        <li>
+            <a href="andriodVPN.html">Andriod VPN</a>
+        </li>
+    </ul>
+</div>-->
+
+
+</body></html>
