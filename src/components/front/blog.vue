@@ -1,13 +1,7 @@
-<!-- 排行榜 -->
+<!-- 智能推荐 -->
 <template>
   <div class="">
-    <el-card class="box-card tiny-text">
-      <div class="weathery">
-        <!--                        <iframe scrolling="no" src="https://tianqiapi.com/api.php?style=ya&skin=pitaya" width="100%"-->
-        <!--                                frameborder="0" allowtransparency="true"></iframe>-->
-        <iframe scrolling="no" src="https://tianqiapi.com/api.php?style=tp&skin=pitaya" width="100%" frameborder="0" allowtransparency="true" height="260"></iframe>
-      </div>
-    </el-card>
+  
   </div>
 </template>
 
@@ -21,7 +15,7 @@ export default {
   data() {
     //这里存放数据
     return {
- 
+      
     }
   },
   //监听属性 类似于data概念
@@ -30,7 +24,7 @@ export default {
   watch: {},
   //方法集合
   methods: {
-  
+     
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},

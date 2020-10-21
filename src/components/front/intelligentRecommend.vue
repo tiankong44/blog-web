@@ -4,8 +4,15 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>智能推荐</span>
-        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+        
       </div>
+       <span id="blogList">
+        <span v-for="(item, index) in blogList" :key="item.message">
+          <hr class="opacity-tiny" />
+          <el-badge :value="index + 1" class="item" :type="typeList[index]"></el-badge>
+          <router-link class="recommend-text router-link-active" tag="a" :to="'/blog/' + item.id"  target="_blank">{{ item.title }}</router-link>
+        </span>
+      </span>
     </el-card>
   </div>
 </template>
@@ -19,18 +26,37 @@ export default {
   components: {},
   data() {
     //这里存放数据
-    return {}
+    return {
+        blogList: {},
+      typeList: ['danger', 'warning', 'primary', 'success', 'info'],
+      type: 'primary'
+    
+    }
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+     getrecommend() {
+      this.request
+        .postJson(this.blogapi.getrecommend)
+        .then((res) => {
+          if (res.code == 0) {
+            this.blogList = res.data.blogList
+          } else {
+          }
+        })
+        .catch((error) => {})
+    },
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {},
+  mounted() {
+    this.getrecommend()
+  },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
@@ -40,5 +66,5 @@ export default {
   activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style>
+<style src="../css/main.css" scoped>
 </style>

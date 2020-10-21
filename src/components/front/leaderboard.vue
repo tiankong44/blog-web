@@ -47,7 +47,6 @@ export default {
       this.request
         .postJson(this.blogapi.getNewFiveBlog)
         .then((res) => {
-          console.log(res.code)
           if (res.code == 0) {
             this.blogList = res.data.blogList
           } else {

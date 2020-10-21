@@ -5,7 +5,7 @@ Vue.use(Router)
 const index = () => import("@/components/front/index.vue");
 const router = new Router({
   mode: "hash",
-  base: "/myblog/",
+  base: "/blog/",
   routes: [
     {
       path: "/",
