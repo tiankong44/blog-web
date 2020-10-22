@@ -1,6 +1,6 @@
 const mutations = {
-  setUserInfo(state, userInfo) {
-    state.userInfo = userInfo;
+  setTitle(state, title) {
+    state.title = title;
   },
 };
 

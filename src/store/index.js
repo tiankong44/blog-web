@@ -6,7 +6,7 @@ import mutations from "@/store/mutations";
 Vue.use(Vuex);
 
 const state = {
-  userInfo: {}, // jcf用户信息
+  title: "", // jcf用户信息
 };
 
 const store = new Vuex.Store({

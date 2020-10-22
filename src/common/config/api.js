@@ -7,7 +7,8 @@ const blogapi = {
   getBlogList:'/blog/blogList',
   getTagList:'/blog/tagList',
   getBlogListByTagId:'/blog/tag',
-  getrecommend:'/blog/recommend'
+  getrecommend:'/blog/recommend',
+  getBlogDetail:'/blog/blogDetail',
   };
   
   export { blogapi };

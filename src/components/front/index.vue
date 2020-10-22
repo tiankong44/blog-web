@@ -23,11 +23,11 @@
               <span>
                 <p>
                   当前第
-                  <span class="green-text">{{page.pageNum}}</span>
+                  <span class="green-text">{{ page.pageNum }}</span>
                   页，总
-                  <span class="green-text">{{page.size}}</span>
+                  <span class="green-text">{{ page.size }}</span>
                   页，共
-                  <span class="green-text">{{page.total}}</span>
+                  <span class="green-text">{{ page.total }}</span>
                   条记录
                 </p>
               </span>
@@ -50,6 +50,9 @@
           <intelligentRecommend></intelligentRecommend>
         </el-col>
       </el-row>
+
+      <el-backtop :right=80 :bottom=80></el-backtop>
+
       <br />
       <br />
       <myfooter></myfooter>
@@ -68,6 +71,7 @@ import intelligentRecommend from '@/components/front/intelligentRecommend'
 import myfooter from '@/components/front/footer'
 import weather from '@/components/front/weather'
 import { _tiper } from '@/common/utils/ui.js'
+
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
@@ -77,7 +81,8 @@ export default {
     leaderboard,
     intelligentRecommend,
     myfooter,
-    weather
+    weather,
+  
   },
   data() {
     //这里存放数据

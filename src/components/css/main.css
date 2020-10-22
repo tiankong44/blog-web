@@ -19,8 +19,24 @@
 
 .blog-title {
   font-size: 20px;
-  opacity: 0.9;
+  opacity: 0.8;
   color: #000000;
+  text-decoration: none;
+}
+
+.userHeadPic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  opacity: 0.9
+}
+
+.userName {
+  margin-top: -20px;
+}
+
+.blog-header {
+  font-size: 16px;
 }
 
 .blogpage-title {
@@ -199,8 +215,8 @@
   text-decoration: none;
 }
 
-.green-text{
-  color:green;
+.green-text {
+  color: green;
 }
 
 /* ===========
@@ -223,8 +239,18 @@
   height: 150px;
 }
 
-.pic-title {
-  padding: 10px 10px 10px 100px;
+.reward-pic {
+  width: 330px;
+  height: 330px;
+}
+
+.pull-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.first-pic {
   width: 650px;
   height: 400px;
 }

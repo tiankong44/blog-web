@@ -1,6 +1,4 @@
 const getters = {
-  getUserInfo: (state) => {
-    return state.userInfo ? state.userInfo : {};
-  },
+  getTitle: (state) => state.title,
 };
 export default getters;

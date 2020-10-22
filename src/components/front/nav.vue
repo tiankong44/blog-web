@@ -26,7 +26,7 @@
             </el-input>
           </el-col>
           <el-col :span="1">
-            <div  style="padding-top: 10px">
+            <div style="padding-top: 10px">
               <el-button type="success" icon="el-icon-search" size="small" @click="search">搜索</el-button>
             </div>
           </el-col>
@@ -55,6 +55,8 @@ export default {
   methods: {
     handleSelect(key, keyPath) {},
     search() {
+      this.$store.commit('setTitle',this.title)
+
       this.$emit('title', this.title)
       this.$emit('fatherMethod')
     }

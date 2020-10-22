@@ -8,9 +8,9 @@
       </div>
        <span id="blogList">
         <span v-for="(item, index) in blogList" :key="item.message">
-          <hr class="opacity-tiny" />
           <el-badge :value="index + 1" class="item" :type="typeList[index]"></el-badge>
           <router-link class="recommend-text router-link-active" tag="a" :to="'/blog/' + item.id"  target="_blank">{{ item.title }}</router-link>
+          <hr class="opacity-tiny" />
         </span>
       </span>
     </el-card>

@@ -4,17 +4,18 @@ import Vue from 'vue';
 import App from './App';
 import router from "./router";
 import ElementUI from "element-ui";
+import '../static/lib/prism/prism.css' 
 import "element-ui/lib/theme-chalk/index.css";
 import store from "./store";
 import { request } from "@/common/utils/request";
 import { blogapi } from "@/common/config/api.js";
-
+// import Prism from 'prismjs';
 Vue.use(ElementUI);
 Vue.use(ElementUI, { size: "small", zIndex: 3000 });
 Vue.prototype.request = request;
 Vue.prototype.blogapi = blogapi;
 Vue.config.productionTip = false;
-
+// Vue.use(Prism);
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
