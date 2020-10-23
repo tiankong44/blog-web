@@ -1,7 +1,7 @@
 <!-- 博客列表 -->
 <template>
   <div class="">
-    <div v-for="item in blogList" :key="item.message">
+    <div v-for="item in blogList" :key="item.id">
       <el-card class="box-card">
         <!-- <el-link target="_blank" @click="blogDetail(item.id)" class="my-link" :underline="false">
           <div class="blog-title">{{ item.title }}</div>

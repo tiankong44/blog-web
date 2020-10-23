@@ -4,7 +4,7 @@
     <div class="">
       <headernav></headernav>
       <br />
-      <el-button type="danger" @click="AA">aa</el-button>
+
       <el-row :gutter="30">
         <el-col :span="5"><div class="hide">111</div></el-col>
         <el-col :span="14">
@@ -40,7 +40,7 @@
             <div class="blogpage-content" v-html="blog.content"></div>
             <hr class="opacity-tiny" />
             <div align="center">
-              <el-popover placement="right" width="400" trigger="hover">
+              <el-popover placement="right" width="400" trigger="hover" v-if="blog.appreciation == 1">
                 <el-tabs v-model="activeName" @tab-click="handleClick">
                   <el-tab-pane label="支付宝" name="alipay"><img class="reward-pic" src="static\images\alipay.jpg" alt="" /></el-tab-pane>
                   <el-tab-pane label="微信" name="wechat"><img class="reward-pic" src="static\images\wechat.png" alt="" /></el-tab-pane>
@@ -55,8 +55,9 @@
             </div>
 
             <hr class="opacity-tiny" />
-            <div>
-              <comment></comment>
+
+            <div v-if="blog.commentabled == 1">
+              <comment :comments="comments" :blogId="blogId" @fatherMethod="getComments()"></comment>
             </div>
           </el-card>
         </el-col>
@@ -77,7 +78,8 @@ import prism from '../../../static/lib/prism/prism.js'
 import headernav from '@/components/front/nav'
 import myfooter from '@/components/front/footer'
 import comment from '@/components/front/comment'
-import {mapGetters} from "vuex"
+import { mapGetters } from 'vuex'
+import { _tiper } from '@/common/utils/ui.js'
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: { headernav, myfooter, comment },
@@ -88,11 +90,12 @@ export default {
       blog: {},
       colorArr: ['primary ', 'warning ', 'success ', 'danger', 'info'],
 
-      activeName: 'alipay'
+      activeName: 'alipay',
+      comments: {}
     }
   },
   //监听属性 类似于data概念
-  computed: { ...mapGetters(['getTitle']) },
+  computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
@@ -112,8 +115,31 @@ export default {
         .catch((error) => {})
     },
     handleClick(tab, event) {},
-    AA(){
-      console.log(this.getTitle)
+
+    praise(id) {
+      let param = { id: this.blogId }
+      this.request
+        .postJson(this.blogapi.praise, param)
+        .then((res) => {
+          if (res.code == 0) {
+            this.blog.praise = res.data
+            _tiper.success(res.desc)
+          } else {
+            _tiper.warn(res.desc)
+          }
+        })
+        .catch((error) => {})
+    },
+    getComments() {
+      let param = { id: this.blogId }
+      this.request
+        .postJson(this.blogapi.getComments, param)
+        .then((res) => {
+          if (res.code == 0) {
+            this.comments = res.data
+          }
+        })
+        .catch((error) => {})
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -122,6 +148,7 @@ export default {
   mounted() {
     this.blogId = this.$route.params.id
     this.blogDetail()
+    this.getComments()
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前

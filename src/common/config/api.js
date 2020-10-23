@@ -9,6 +9,9 @@ const blogapi = {
   getBlogListByTagId:'/blog/tag',
   getrecommend:'/blog/recommend',
   getBlogDetail:'/blog/blogDetail',
+  praise:'/blog/praise',
+  getComments:'/blog/getComments',
+  postComment:'/blog/comments'
   };
   
   export { blogapi };

@@ -23,7 +23,10 @@
   color: #000000;
   text-decoration: none;
 }
-
+.nickname{
+  font-size: 16px;
+  color: #1c97f5;
+}
 .userHeadPic {
   width: 30px;
   height: 30px;
@@ -191,7 +194,13 @@
 .padding-small {
   padding-left: 5%;
 }
+.comment-padding{
+  padding: 5px 0px 5px 0px;
+}
+.comment-content{
+  font-size: 17px;
 
+}
 .header-text {
   font-size: 20px;
 
@@ -214,11 +223,16 @@
 .router-link-active {
   text-decoration: none;
 }
-
+.reply-text{
+  font-size: 15px;
+  opacity: 0.8;
+}
 .green-text {
   color: green;
 }
-
+.reply{
+  color: green;
+}
 /* ===========
 	工具样式
 	
@@ -275,6 +289,7 @@
 /* 置左*/
 .pull-left {
   float: left !important;
+
 }
 
 
