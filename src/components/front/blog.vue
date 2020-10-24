@@ -2,7 +2,7 @@
 <template>
   <body background="static\images\email-pattern.png">
     <div class="">
-      <headernav></headernav>
+      <!-- <headernav></headernav> -->
       <br />
 
       <el-row :gutter="30">
@@ -42,8 +42,8 @@
             <div align="center">
               <el-popover placement="right" width="400" trigger="hover" v-if="blog.appreciation == 1">
                 <el-tabs v-model="activeName" @tab-click="handleClick">
-                  <el-tab-pane label="支付宝" name="alipay"><img class="reward-pic" src="static\images\alipay.jpg" alt="" /></el-tab-pane>
-                  <el-tab-pane label="微信" name="wechat"><img class="reward-pic" src="static\images\wechat.png" alt="" /></el-tab-pane>
+                  <el-tab-pane label="支付宝" name="alipay"><img class="reward-pic" src="..\..\..\static\images\alipay.jpg" alt="" /></el-tab-pane>
+                  <el-tab-pane label="微信" name="wechat"><img class="reward-pic" src="..\..\..\static\images\wechat.png" alt="" /></el-tab-pane>
                 </el-tabs>
 
                 <el-button slot="reference" type="danger" round>赏</el-button>

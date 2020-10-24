@@ -1,104 +1,55 @@
-<!-- 展示首页 -->
+<!-- 导航栏 -->
 <template>
-  <body background="static\images\email-pattern.png">
-    <div class="">
-      <headernav @title="getTitle" @fatherMethod="getblogList()"></headernav>
-      <br />
-      <el-row :gutter="30">
-        <el-col :span="5"><div class="hide">111</div></el-col>
-        <el-col :span="11">
-          <blogList :blogList="blogList" :tagId="tagId"></blogList>
-          <div align="center">
-            <el-button-group>
-              <el-button v-on:click="firstPage()">首页</el-button>
-              <el-button icon="el-icon-arrow-left" v-on:click="prePage()">上一页</el-button>
-              <el-button v-on:click="nextPage()">
-                下一页
-                <i class="el-icon-arrow-right el-icon--right"></i>
-              </el-button>
+  <div class="">
+    <div class="header">
+      <el-row class="" :gutter="10">
+        <el-menu :default-active="activeIndex" :default-openeds="['1']" class="el-menu-demo header-padding" mode="horizontal" @select="handleSelect" background-color="#000000" text-color="#fff" active-text-color="#0FD03F">
+          <el-col :span="5">
+            <div class="location-center hide">111</div>
+          </el-col>
 
-              <el-button v-on:click="lastPage()" class="lastPage">尾页</el-button>
-            </el-button-group>
-            <div align="center" style="font-size: 15px; opacity: 0.7">
-              <span>
-                <p>
-                  当前第
-                  <span class="green-text">{{ page.pageNum }}</span>
-                  页，总
-                  <span class="green-text">{{ page.size }}</span>
-                  页，共
-                  <span class="green-text">{{ page.total }}</span>
-                  条记录
-                </p>
-              </span>
+          <el-menu-item index="index" class="header-text">首页</el-menu-item>
+
+          <el-menu-item index="tag" class="header-text">标签</el-menu-item>
+
+          <el-menu-item index="archive" class="header-text">归档</el-menu-item>
+
+          <el-menu-item index="4" class="header-text">相册</el-menu-item>
+
+          <el-menu-item index="5" class="header-text">关于我</el-menu-item>
+          <el-col :span="2">
+            <div class="hide">1</div>
+          </el-col>
+          <el-col :span="3">
+            <el-input placeholder="请输入内容" size="small" v-model="title" style="padding-top: 12px" @keyup.enter.native="search">
+              <i slot="prefix" style="padding-top: 8px" class="el-input__icon el-icon-search"></i>
+            </el-input>
+          </el-col>
+          <el-col :span="1">
+            <div style="padding-top: 10px">
+              <el-button type="success" icon="el-icon-search" size="small" @click="search">搜索</el-button>
             </div>
-          </div>
-        </el-col>
-        <el-col :span="5">
-          <weather></weather>
-          <br />
-          <br />
-          <br />
-          <tagCard @tagId="getTagId" @fatherMethod="getblogList()"></tagCard>
-          <br />
-          <br />
-          <br />
-          <leaderboard></leaderboard>
-          <br />
-          <br />
-          <br />
-          <intelligentRecommend></intelligentRecommend>
-        </el-col>
+          </el-col>
+        </el-menu>
+        <!-- <keep-alive> -->
+        <searchResult v-if="isShow" :title="title" ref="child" @fatherMethod="closeSearch()"></searchResult>
+        <router-view :key="$route.title" v-if="!isShow" />
+        <!-- </keep-alive> -->
       </el-row>
-
-      <el-backtop :right=80 :bottom=80></el-backtop>
-
-      <br />
-      <br />
-      <myfooter></myfooter>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import headernav from '@/components/front/nav'
-import blogList from '@/components/front/blogList'
-import tagCard from '@/components/front/tagCard'
-import leaderboard from '@/components/front/leaderboard'
-import intelligentRecommend from '@/components/front/intelligentRecommend'
-import myfooter from '@/components/front/footer'
-import weather from '@/components/front/weather'
-import { _tiper } from '@/common/utils/ui.js'
-
+import searchResult from '@/components/front/searchResult'
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {
-    headernav,
-    blogList,
-    tagCard,
-    leaderboard,
-    intelligentRecommend,
-    myfooter,
-    weather,
-  
-  },
+  components: { searchResult },
   data() {
     //这里存放数据
-    return {
-      title: '',
-      tagId: 0,
-      page: {
-        prePage: 0,
-        pageNum: 1,
-        nextPage: 2,
-        pageSize: 8,
-        size: 0,
-        total: 0
-      },
-      blogList: {}
-    }
+    return { activeIndex:"index",title: '', homeSrc: '/index', config: { index: '/index', tag: '/tag', archive: '/archive' }, isShow: false }
   },
   //监听属性 类似于data概念
   computed: {},
@@ -106,80 +57,31 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    getTitle(title) {
-      this.title = title
+    handleSelect(key, keyPath) {
+      this.isShow = false
+      this.$router.push(this.config[key])
     },
-    getTagId(tagId) {
-      this.tagId = tagId
+    search() {
+      this.$store.commit('setTitle', this.title)
+      console.log(this.title)
+      //  this.isShow = false
+      this.isShow = true
+      this.timer = setTimeout(() => {
+        this.$refs.child.getblogList()
+      }, 0)
+
+      // this.$emit('title', this.title)
+      // this.$emit('fatherMethod')
     },
-    getblogList() {
-      let param = {
-        title: this.title,
-        tagId: this.tagId,
-        pageNum: this.page.pageNum,
-        pageSize: this.page.pageSize
-      }
-      this.request
-        .postJson(this.blogapi.getBlogList, param)
-        .then((res) => {
-          if (res.code == 0) {
-            this.blogList = res.data.list
-            this.page.pageNum = res.data.pageNum
-            this.page.total = res.data.total
-            this.page.prePage = res.data.prePage
-            this.page.nextPage = res.data.nextPage
-            this.page.size = res.data.pages
-            this.backTop()
-          }
-        })
-        .catch((error) => {})
-    },
-    firstPage() {
-      if (this.page.prePage == 0) {
-        _tiper.warn('已经在第一页了哦！')
-      } else {
-        this.page.pageNum = 1
-        this.getblogList()
-        this.backTop()
-      }
-    },
-    prePage() {
-      if (this.page.prePage == 0) {
-        _tiper.warn('已经在第一页了哦！')
-      } else {
-        this.page.pageNum = this.page.prePage
-        this.getblogList()
-        this.backTop()
-      }
-    },
-    nextPage() {
-      if (this.page.nextPage == 0) {
-        _tiper.warn('已经到最后一页了！')
-      } else {
-        this.page.pageNum = this.page.nextPage
-        this.getblogList()
-        this.backTop()
-      }
-    },
-    lastPage() {
-      if (this.page.nextPage == 0) {
-        _tiper.warn('已经到最后一页了！')
-      } else {
-        this.page.pageNum = this.page.size
-        this.getblogList()
-        this.backTop()
-      }
-    },
-    backTop() {
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
+    closeSearch() {
+      this.isShow = false
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    this.getblogList()
+    // this.$router.push(this.homeSrc)
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -191,4 +93,3 @@ export default {
 }
 </script>
 <style src="../css/main.css" scoped>
-</style>

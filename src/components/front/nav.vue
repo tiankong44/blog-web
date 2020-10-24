@@ -55,7 +55,7 @@ export default {
   methods: {
     handleSelect(key, keyPath) {},
     search() {
-      this.$store.commit('setTitle',this.title)
+      this.$store.commit('setTitle', this.title)
 
       this.$emit('title', this.title)
       this.$emit('fatherMethod')

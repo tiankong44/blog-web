@@ -4,44 +4,42 @@
     <h3 class="pull-center">用户评论</h3>
 
     <div class="comment-parent" v-for="comment in comments" :key="comment.id">
-      <el-row>
-        <el-col :span="2">
+      <el-row :gutter="70">
+        <el-col :span="1">
           <div class="">
-            <el-avatar :src="comment.avatar" size="large"></el-avatar>
+            <el-avatar :src="comment.avatar" :size="50"></el-avatar>
           </div>
         </el-col>
         <el-col :span="18">
           <div class="">
             <span>
-              <cite>
-                <span class="nickname comment-padding">{{ comment.nickname }}</span>
-                &nbsp;
-              </cite>
+              <span class="nickname comment-padding">{{ comment.nickname }}</span>
+              &nbsp;
             </span>
             <div class="comment-content opacity-full comment-padding">{{ comment.content }}</div>
             <div class="opacity-min-mintext">
               <span>{{ comment.createTime }}</span>
               &nbsp;
-              <a class="reply" @click="reply(comment.id, comment.nickname)">回复</a>
+              <a class="reply" @click="reply(comment.id, comment.nickname)" style="cursor: pointer">回复</a>
             </div>
             <div class="reply-area" v-if="isShow && parentCommentId == comment.id">
               <el-card shadow="never" :body-style="bodyStyle">
                 <el-row>
-                  <el-col :span="13">
-                    <el-input type="textarea" :rows="2" :placeholder="placeholder" v-model="content"></el-input>
+                  <el-col :span="18">
+                    <el-input type="textarea" :rows="4" :placeholder="placeholder" v-model="content"></el-input>
                   </el-col>
                 </el-row>
                 <el-row :gutter="40">
                   <br />
-                  <el-col :span="5">
+                  <el-col :span="7">
                     <div class=""><el-input placeholder="昵称" suffix-icon="el-icon-user" v-model="nickname"></el-input></div>
                   </el-col>
 
-                  <el-col :span="5">
+                  <el-col :span="7">
                     <div class=""><el-input placeholder="邮箱" suffix-icon="el-icon-message" v-model="email"></el-input></div>
                   </el-col>
-                  <el-col :span="5">
-                    <el-button type="success" round @click="postComment">发布</el-button>
+                  <el-col :span="7">
+                    <el-button type="success" round @click="postReply">发布</el-button>
                   </el-col>
                 </el-row>
               </el-card>
@@ -60,10 +58,7 @@
                   <el-col :span="18">
                     <div class="">
                       <span>
-                        <cite>
-                          <span class="nickname comment-padding">{{ reply.nickname }}</span>
-                          &nbsp;
-                        </cite>
+                        <span class="nickname comment-padding">{{ reply.nickname }}</span>
                       </span>
                       <span class="reply-text">回复</span>
 
@@ -86,22 +81,24 @@
     <div class="reply-area">
       <el-card shadow="never" :body-style="bodyStyle">
         <el-row>
-          <el-col :span="13">
-            <el-input type="textarea" :rows="2" :placeholder="placeholder" v-model="content"></el-input>
+          <el-col :span="17">
+            <el-input type="textarea" :rows="6" :placeholder="commentPlaceholder" v-model="commentContent"></el-input>
           </el-col>
         </el-row>
         <el-row :gutter="40">
           <br />
-          <el-col :span="5">
-            <div class=""><el-input placeholder="昵称" suffix-icon="el-icon-user" v-model="nickname"></el-input></div>
+          <el-col :span="7">
+            <div class=""><el-input placeholder="昵称" suffix-icon="el-icon-user" v-model="commentNickname"></el-input></div>
           </el-col>
 
-          <el-col :span="5">
-            <div class=""><el-input placeholder="邮箱" suffix-icon="el-icon-message" v-model="email"></el-input></div>
+          <el-col :span="7">
+            <div class=""><el-input placeholder="邮箱" suffix-icon="el-icon-message" v-model="commentEmail"></el-input></div>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="7">
             <el-button type="success" round @click="postComment">发布</el-button>
           </el-col>
+          <br />
+          <br />
         </el-row>
       </el-card>
       <br />
@@ -126,7 +123,11 @@ export default {
       placeholder: '请输入内容',
       parentCommentId: -1,
       nickname: '',
-      email: ''
+      email: '',
+      commentPlaceholder: '请输入内容',
+      commentContent: '',
+      commentNickname: '',
+      commentEmail: ''
     }
   },
   //监听属性 类似于data概念
@@ -138,13 +139,15 @@ export default {
     reply(id, nickname) {
       if (id != this.parentCommentId) {
         this.isShow = true
+        this.nickname="";
+        this.email=""
       } else {
         this.isShow = !this.isShow
       }
       this.parentCommentId = id
       this.placeholder = '@' + nickname
     },
-    postComment() {
+    postReply() {
       let param = {
         blogId: this.blogId,
         parentCommentId: this.parentCommentId,
@@ -160,7 +163,28 @@ export default {
             this.content = ''
             this.nickname = ''
             this.email = ''
+            this.placeholder = ''
             this.isShow = false
+          }
+        })
+        .catch((error) => {})
+    },
+    postComment() {
+      let param = {
+        blogId: this.blogId,
+        parentCommentId: -1,
+        nickname: this.commentNickname,
+        email: this.commentEmail,
+        content: this.commentContent
+      }
+      this.request
+        .postJson(this.blogapi.postComment, param)
+        .then((res) => {
+          if (res.code == 0) {
+            this.$emit('fatherMethod')
+            this.commentContent = ''
+            this.commentNickname = ''
+            this.commentEmail = ''
           }
         })
         .catch((error) => {})
