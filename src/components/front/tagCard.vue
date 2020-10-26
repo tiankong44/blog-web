@@ -4,13 +4,17 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>标签</span>
-        <el-button style="float: right; padding: 3px 0" type="text">more</el-button>
+        <el-button style="float: right; padding: 3px 0" type="text" @click="toMore()">more</el-button>
       </div>
 
-      <el-button size="small" round v-for="tag in tagList" :key="tag.name" :type="colorArr[Math.floor(Math.random() * 6)]" @click="handleClick(tag.id)" style="margin-bottom:10px; ">{{ tag.name }}</el-button>
+      <el-button size="small" round v-for="tag in tagList" :key="tag.name" :type="colorArr[Math.floor(Math.random() * 6)]" @click="handleClick(tag.id)" style="margin-bottom: 10px">
+        {{ tag.name }}
+      </el-button>
 
       <!-- <el-tag size="medium " color="#e8741c" effect="dark" hit="true" round v-for="tag in tagList" :key="tag.name" @click="handleClick(tag.id)">{{ tag.name }}</el-tag> -->
     </el-card>
+  
+  
   </div>
 </template>
 
@@ -47,6 +51,9 @@ export default {
     handleClick(id) {
       this.$emit('tagId', id)
       this.$emit('fatherMethod')
+    },
+    toMore() {
+      this.$router.push('/tag')
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）

@@ -26,7 +26,8 @@
             <td colspan="2">
               <!-- 点击事件的两种不同的写法v-on:click和 @click-->
               <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
-              <el-button style="width: 300px" type="primary" @click="doLogin">登录</el-button>
+             <div align="center"> <el-button type="primary" @click="doLogin">登录</el-button></div>
+             
             </td>
           </tr>
         </table>
@@ -44,14 +45,23 @@ export default {
   components: {},
   data() {
     //这里存放数据
-    return {}
+    return {
+      loginBo: {
+        systemUserCode: '',
+        password: ''
+      }
+    }
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+      doLogin(){
+           this.$router.push("/blogHome");
+      }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）

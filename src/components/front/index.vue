@@ -3,7 +3,7 @@
   <div class="">
     <div class="header">
       <el-row class="" :gutter="10">
-        <el-menu :default-active="activeIndex" :default-openeds="['1']" class="el-menu-demo header-padding" mode="horizontal" @select="handleSelect" background-color="#000000" text-color="#fff" active-text-color="#0FD03F">
+        <el-menu class="el-menu-demo header-padding" mode="horizontal" @select="handleSelect" background-color="#000000" text-color="#fff" active-text-color="#0FD03F">
           <el-col :span="5">
             <div class="location-center hide">111</div>
           </el-col>
@@ -49,7 +49,7 @@ export default {
   components: { searchResult },
   data() {
     //这里存放数据
-    return { activeIndex:"index",title: '', homeSrc: '/index', config: { index: '/index', tag: '/tag', archive: '/archive' }, isShow: false }
+    return { title: '', homeSrc: '/index', config: { index: '/index', tag: '/tag', archive: '/archive' }, isShow: false }
   },
   //监听属性 类似于data概念
   computed: {},

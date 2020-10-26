@@ -23,10 +23,12 @@
   color: #000000;
   text-decoration: none;
 }
-.nickname{
+
+.nickname {
   font-size: 18px;
   color: #1c97f5;
 }
+
 .userHeadPic {
   width: 30px;
   height: 30px;
@@ -194,13 +196,16 @@
 .padding-small {
   padding-left: 5%;
 }
-.comment-padding{
+
+.comment-padding {
   padding: 5px 0px 5px 0px;
 }
-.comment-content{
+
+.comment-content {
   font-size: 18px;
 
 }
+
 .header-text {
   font-size: 20px;
 
@@ -223,16 +228,20 @@
 .router-link-active {
   text-decoration: none;
 }
-.reply-text{
+
+.reply-text {
   font-size: 15px;
   opacity: 0.8;
 }
+
 .green-text {
   color: green;
 }
-.reply{
+
+.reply {
   color: green;
 }
+
 /* ===========
 	工具样式
 	
@@ -292,6 +301,12 @@
 
 }
 
+
+
+.my-footer {
+  background-color: #000000;
+  height: 60px;
+}
 
 /* ==============
 	自定义页面样式

@@ -1,7 +1,8 @@
 <!-- 标签页 -->
 <template>
   <div class="">
-    <div class="footer" style="background-color: #000000; padding:60px 0 0 0">1</div>
+    <br>
+    <div class="my-footer"></div>
   </div>
 </template>
 
@@ -35,5 +36,5 @@ export default {
   activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style>
+<style src="../css/main.css" scoped>
 </style>

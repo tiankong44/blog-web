@@ -17,9 +17,9 @@ const router = new Router({
   mode: "hash",
   base: "/blog/",
   routes: [
-    
     {
       path: "/blogHome",
+      redirect: '/index',
       component: blogHome,
       children: [
         // {
@@ -55,37 +55,19 @@ const router = new Router({
     {
       path: "/",
       name: "blogHome",
+      redirect: '/index',
       component: blogHome,
     },
     {
       path: "/blog/:id",
       name: "blogDetail",
       component: blogDetail,
-
     },
-  
-    // {
-    //   path: "/index",
-    //   component: index,
-    // },
-    // {
-    //   path: "/blog/:id",
-    //   name:"blogDetail",
-    //   component: blogDetail,
+    {
+      path: "/login",
+      component: login,
+    },
 
-    // },
-    // {
-    //   path: "/index",
-    //   name:"index",
-    //   component: index,
-
-    // },
-    // {
-    //   path: "/tag",
-    //   name:"tag",
-    //   component: tag,
-
-    // },
   ],
 });
 

@@ -1,6 +1,27 @@
 <!--  -->
 <template>
-  <div class=""></div>
+  <div class="block">
+    <br />
+    <br />
+    <el-row :gutter="30">
+      <el-col :span="6"><div class="hide">111</div></el-col>
+      <el-col :span="11">
+        <el-timeline>
+          <el-timeline-item :timestamp="blog.date" placement="top" v-for="blog in blogMap" :key="blog.id">
+            <el-card>
+              <div v-for="(item,index) in blog.list" :key="item.id">
+                <el-card :body-style="bodyStyle">
+                  <h4>{{ item.title }}</h4>
+                  <p>{{ item.user.nickname }} 更新于 {{ item.updateTime }}</p>
+                </el-card>
+                <br v-if="blog.list.length > 1 " />
+              </div>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -12,18 +33,35 @@ export default {
   components: {},
   data() {
     //这里存放数据
-    return {}
+    return {
+      blogMap: {},
+      blogList: {},
+      bodyStyle: { 'background-color': '#f5f7fd' }
+    }
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    getBlogMap() {
+      this.request
+        .postJson(this.blogapi.getBlogMap)
+        .then((res) => {
+          if (res.code == 0) {
+            this.blogMap = res.data
+          }
+        })
+        .catch((error) => {})
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {},
+  mounted() {
+    this.getBlogMap()
+  },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
