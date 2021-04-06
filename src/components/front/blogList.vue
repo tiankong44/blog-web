@@ -6,15 +6,15 @@
         <!-- <el-link target="_blank" @click="blogDetail(item.id)" class="my-link" :underline="false">
           <div class="blog-title">{{ item.title }}</div>
         </el-link> -->
-        <router-link class="blog-title" :to="{ name: 'blogDetail', params: { id: item.id } }">
+        <a class="blog-title" @click="blogDetail(item.id)">
           <div class="blog-title">{{ item.title }}</div>
-        </router-link>
+        </a>
 
         <el-row>
           <el-col :span="16">
             <div class="precontent-opacity">{{ item.description }}</div>
           </el-col>
-          <el-col :span="8"><img class="pic-index" alt="" :src="'' + item.firstPicture" /></el-col>
+          <el-col :span="8"><img v-image-preview class="pic-index" alt="" :src="'' + item.firstPicture" /></el-col>
         </el-row>
         <hr class="opacity-tiny" />
         <div class="opacity-min">
@@ -44,9 +44,9 @@
             {{ item.views }}
           </span>
           <span>
-            <router-link class="pull-right" :to="{ name: 'blogDetail', params: { id: item.id } }">
+            <a class="pull-right" @click="blogDetail(item.id)">
               <el-button size="mini">阅读全文</el-button>
-            </router-link>
+            </a>
           </span>
         </div>
       </el-card>
@@ -89,7 +89,7 @@ export default {
       this.tags = this.blogList.tags
     },
     blogDetail(id) {
-      this.$router.push({ path: '/blog', params: { id: id } })
+      this.$router.push({ path: '/blog', query: { id: id } })
       // let routeData = this.$router.resolve({ path: '/blog', query: {  id: 1 } });
       // window.open(routeData.href, '_blank');
     }

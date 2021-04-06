@@ -11,7 +11,7 @@
           <tr>
             <td>用户名</td>
             <td>
-              <el-input v-model="loginBo.systemUserCode" placeholder="请输入用户名"></el-input>
+              <el-input v-model="loginBo.username" placeholder="请输入用户名"></el-input>
             </td>
           </tr>
           <tr>
@@ -26,8 +26,7 @@
             <td colspan="2">
               <!-- 点击事件的两种不同的写法v-on:click和 @click-->
               <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
-             <div align="center"> <el-button type="primary" @click="doLogin">登录</el-button></div>
-             
+              <div align="center"><el-button type="primary" @click="doLogin">登录</el-button></div>
             </td>
           </tr>
         </table>
@@ -39,7 +38,7 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import { _tiper } from '@/common/utils/ui.js'
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},
@@ -47,7 +46,7 @@ export default {
     //这里存放数据
     return {
       loginBo: {
-        systemUserCode: '',
+        username: '',
         password: ''
       }
     }
@@ -58,9 +57,28 @@ export default {
   watch: {},
   //方法集合
   methods: {
-      doLogin(){
-           this.$router.push("/blogHome");
+    doLogin() {
+      var target = this.$route.params.url
+      if (target != null && target != '') {
+        target = target.replace('http://127.0.0.1', '')
+      } else {
+        target = '/blogHome'
       }
+
+      let param = this.loginBo
+      console.log(param)
+      this.request
+        .postJson(this.blogapi.login, param)
+        .then((res) => {
+          if (res.code == 0) {
+            this.$router.push(target)
+            _tiper.success(res.desc)
+          } else {
+            _tiper.warn(res.desc)
+          }
+        })
+        .catch((error) => {})
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},

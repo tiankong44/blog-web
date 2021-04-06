@@ -1,5 +1,6 @@
 <!-- 博客列表 -->
 <template>
+ <body background="static\images\email-pattern.png">
   <div class="">
     <br />
     <br />
@@ -19,7 +20,7 @@
               <el-col :span="16">
                 <div class="precontent-opacity">{{ item.description }}</div>
               </el-col>
-              <el-col :span="8"><img class="pic-index" alt="" :src="'' + item.firstPicture" /></el-col>
+              <el-col :span="8"><img v-image-preview class="pic-index" alt="" :src="'' + item.firstPicture" /></el-col>
             </el-row>
             <hr class="opacity-tiny" />
             <div class="opacity-min">
@@ -84,7 +85,9 @@
         </div>
       </el-col>
     </el-row>
+     <el-backtop :right="80" :bottom="80"></el-backtop>
   </div>
+ </body>
 </template>
 
 <script>

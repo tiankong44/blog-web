@@ -14,9 +14,9 @@
 
           <el-menu-item index="3" class="header-text">归档</el-menu-item>
 
-          <el-menu-item index="4" class="header-text">相册</el-menu-item>
+          <!-- <el-menu-item index="4" class="header-text">相册</el-menu-item> -->
 
-          <el-menu-item index="5" class="header-text">关于我</el-menu-item>
+          <!-- <el-menu-item index="5" class="header-text">关于我</el-menu-item> -->
           <el-col :span="2">
             <div class="hide">1</div>
           </el-col>
@@ -30,6 +30,7 @@
               <el-button type="success" icon="el-icon-search" size="small" @click="search">搜索</el-button>
             </div>
           </el-col>
+          <el-menu-item index="6" class="header-text">头像<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar></el-menu-item>
         </el-menu>
       </el-row>
     </div>

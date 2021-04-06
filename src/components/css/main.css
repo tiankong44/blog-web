@@ -22,6 +22,7 @@
   opacity: 0.8;
   color: #000000;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .nickname {
@@ -48,6 +49,7 @@
   text-align: center;
   font-size: 24px;
   text-shadow: 3px 2px 4px #000000;
+
 }
 
 .blogpage-content {
@@ -291,6 +293,12 @@
   padding: 0 10px 10px 10px;
 }
 
+.about-pic {
+
+  width: 400px;
+  height: 400px;
+}
+
 .pull-right {
   float: right !important;
 }
@@ -306,6 +314,31 @@
 .my-footer {
   background-color: #000000;
   height: 60px;
+}
+
+.nav-user-text {
+  margin-left: 300px !important;
+  text-decoration: underline
+}
+
+.nav-user-avatar {
+  margin-left: 220px;
+}
+
+.changeAvatar-text {
+  color: #1c97f5;
+  cursor: pointer;
+}
+
+.skill-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.changehand {
+  cursor: pointer;
 }
 
 /* ==============

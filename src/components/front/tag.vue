@@ -1,5 +1,6 @@
 <!-- 标签页 -->
 <template>
+  <body background="static\images\email-pattern.png">
   <div class="">
     <br />
     <br />
@@ -50,6 +51,7 @@
     </el-row>
       <myfooter></myfooter>
   </div>
+  </body>
 </template>
 
 <script>

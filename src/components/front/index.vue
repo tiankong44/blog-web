@@ -14,10 +14,10 @@
 
           <el-menu-item index="archive" class="header-text">归档</el-menu-item>
 
-          <el-menu-item index="4" class="header-text">相册</el-menu-item>
+          <!-- <el-menu-item index="album" class="header-text">相册</el-menu-item> -->
 
-          <el-menu-item index="5" class="header-text">关于我</el-menu-item>
-          <el-col :span="2">
+          <!-- <el-menu-item index="about" class="header-text">关于我</el-menu-item> -->
+          <el-col :span="4">
             <div class="hide">1</div>
           </el-col>
           <el-col :span="3">
@@ -30,6 +30,19 @@
               <el-button type="success" icon="el-icon-search" size="small" @click="search">搜索</el-button>
             </div>
           </el-col>
+
+          <el-submenu class="nav-user-avatar" index="user" v-if="userVo != null">
+            <template slot="title">
+              <el-avatar :src="userVo.avatar"></el-avatar>
+              {{ userVo.nickname }}
+            </template>
+
+            <el-menu-item index="personalInformation" @click="toPersonalInformation">个人资料</el-menu-item>
+            <el-menu-item index="admin" @click="toAdmin">后台管理</el-menu-item>
+            <el-menu-item index="logout" @click="logout">退出</el-menu-item>
+          </el-submenu>
+
+          <el-menu-item index="login" class="nav-user-text" @click="toLogin" v-if="userVo == null">请登录</el-menu-item>
         </el-menu>
         <!-- <keep-alive> -->
         <searchResult v-if="isShow" :title="title" ref="child" @fatherMethod="closeSearch()"></searchResult>
@@ -44,19 +57,38 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import searchResult from '@/components/front/searchResult'
+import { mapGetters } from 'vuex'
+import { _tiper } from '@/common/utils/ui.js'
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: { searchResult },
   data() {
     //这里存放数据
-    return { title: '', homeSrc: '/index', config: { index: '/index', tag: '/tag', archive: '/archive' }, isShow: false }
+    // return { title: '', homeSrc: '/index', config: { index: '/index', tag: '/tag', archive: '/archive', album: '/album', about: '/about' }, isShow: false, userVo: {} }
+    return { title: '', homeSrc: '/index', config: { index: '/index', tag: '/tag', archive: '/archive' }, isShow: false, userVo: {} }
   },
   //监听属性 类似于data概念
-  computed: {},
+  computed: {
+    ...mapGetters(['getUsername'])
+  },
   //监控data中的数据变化
   watch: {},
   //方法集合
   methods: {
+    getSysUserInfo() {
+      this.request
+        .postJson(this.blogapi.getSysUserInfo)
+        .then((res) => {
+          if (res.code == 0) {
+            this.userVo = res.data
+          } else {
+            this.userVo = null
+          }
+        })
+        .catch((error) => {})
+      
+    },
+
     handleSelect(key, keyPath) {
       this.isShow = false
       this.$router.push(this.config[key])
@@ -75,13 +107,40 @@ export default {
     },
     closeSearch() {
       this.isShow = false
+    },
+    logout() {
+      this.request
+        .postJson(this.blogapi.logout)
+        .then((res) => {
+          if (res.code == 0) {
+            this.$router.push('/login')
+            _tiper.success(res.desc)
+          } else {
+            _tiper.warn(res.desc)
+          }
+        })
+        .catch((error) => {})
+    },
+    toLogin() {
+      if (this.userVo == null) {
+        var url = window.location.href
+
+        this.$router.push({ name: 'login', params: { url: url } })
+      }
+    },
+    toPersonalInformation() {
+      this.$router.push({ path: '/about' })
+    },
+    toAdmin(){
+      this.$router.push({ path: '/admin' })
     }
   },
+
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    // this.$router.push(this.homeSrc)
+    this.getSysUserInfo()
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前

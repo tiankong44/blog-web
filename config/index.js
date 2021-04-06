@@ -11,10 +11,12 @@ module.exports = {
     assetsPublicPath: '/index',
     proxyTable: {
       '/blog': {
-        target: 'http://127.0.0.1:8090', //源地址
+        // target: 'http://116.62.178.5:8090', //源地址
+         target: 'http://127.0.0.1:8090', //源地址
         changeOrigin: true, //改变源
         pathRewrite: {
-          '^/blog': 'http://127.0.0.1:8090' //路径重写
+          // '^/blog': 'http://116.62.178.5:8090' //路径重写
+           '^/blog': 'http://127.0.0.1:8090' //路径重写
         }
       }
     },
@@ -46,13 +48,14 @@ module.exports = {
   },
 
   build: {
+    env:require('./prod.env'),
     // Template for index.html
-    index: path.resolve(__dirname, '../blog/index.html'),
+    index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../blog'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

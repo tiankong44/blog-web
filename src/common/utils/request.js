@@ -59,7 +59,7 @@ function postJson(method, param) {
   return new Promise((resolve, reject) => {
     // 根据jcf对接口请求封装
     // let postParam = { };
-    
+
     axios
       .post(method, param)
       .then((res) => {
@@ -68,10 +68,14 @@ function postJson(method, param) {
       })
       .catch((err) => {
         reject(err.data);
-  
+
       });
   });
 }
+
+
+
+
 /**
  * axios get 请求
  * @param {String} method [请求接口方法名称]

@@ -31,13 +31,13 @@
                 </el-row>
                 <el-row :gutter="40">
                   <br />
-                  <el-col :span="7">
+                  <!-- <el-col :span="7">
                     <div class=""><el-input placeholder="昵称" suffix-icon="el-icon-user" v-model="nickname"></el-input></div>
                   </el-col>
 
                   <el-col :span="7">
                     <div class=""><el-input placeholder="邮箱" suffix-icon="el-icon-message" v-model="email"></el-input></div>
-                  </el-col>
+                  </el-col> -->
                   <el-col :span="7">
                     <el-button type="success" round @click="postReply">发布</el-button>
                   </el-col>
@@ -87,13 +87,13 @@
         </el-row>
         <el-row :gutter="40">
           <br />
-          <el-col :span="7">
+          <!-- <el-col :span="7">
             <div class=""><el-input placeholder="昵称" suffix-icon="el-icon-user" v-model="commentNickname"></el-input></div>
           </el-col>
 
           <el-col :span="7">
             <div class=""><el-input placeholder="邮箱" suffix-icon="el-icon-message" v-model="commentEmail"></el-input></div>
-          </el-col>
+          </el-col> -->
           <el-col :span="7">
             <el-button type="success" round @click="postComment">发布</el-button>
           </el-col>
@@ -109,7 +109,7 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import { _tiper } from '@/common/utils/ui.js'
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},
@@ -122,12 +122,13 @@ export default {
       content: '',
       placeholder: '请输入内容',
       parentCommentId: -1,
-      nickname: '',
-      email: '',
+      // nickname: '',
+      // email: '',
       commentPlaceholder: '请输入内容',
       commentContent: '',
-      commentNickname: '',
-      commentEmail: ''
+      // commentNickname: '',
+      // commentEmail: '',
+      userInfo: {}
     }
   },
   //监听属性 类似于data概念
@@ -136,11 +137,24 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    getSysUserInfo() {
+      this.request
+        .postJson(this.blogapi.getSysUserInfo)
+        .then((res) => {
+          if (res.code == 0) {
+            this.userInfo = res.data
+          } else {
+            this.userInfo = null
+          }
+        })
+        .catch((error) => {})
+    },
+
     reply(id, nickname) {
       if (id != this.parentCommentId) {
         this.isShow = true
-        this.nickname="";
-        this.email=""
+        // this.nickname = ''
+        // this.email = ''
       } else {
         this.isShow = !this.isShow
       }
@@ -148,50 +162,55 @@ export default {
       this.placeholder = '@' + nickname
     },
     postReply() {
-      let param = {
-        blogId: this.blogId,
-        parentCommentId: this.parentCommentId,
-        nickname: this.nickname,
-        email: this.email,
-        content: this.content
+      if (this.userInfo == null) {
+        _tiper.warn('请先登录')
+      } else {
+        let param = {
+          blogId: this.blogId,
+          parentCommentId: this.parentCommentId,
+          content: this.content,
+        }
+        this.request
+          .postJson(this.blogapi.postComment, param)
+          .then((res) => {
+            if (res.code == 0) {
+              this.$emit('fatherMethod')
+              this.content = ''
+
+              this.placeholder = ''
+              this.isShow = false
+            }
+          })
+          .catch((error) => {})
       }
-      this.request
-        .postJson(this.blogapi.postComment, param)
-        .then((res) => {
-          if (res.code == 0) {
-            this.$emit('fatherMethod')
-            this.content = ''
-            this.nickname = ''
-            this.email = ''
-            this.placeholder = ''
-            this.isShow = false
-          }
-        })
-        .catch((error) => {})
     },
     postComment() {
-      let param = {
-        blogId: this.blogId,
-        parentCommentId: -1,
-        nickname: this.commentNickname,
-        email: this.commentEmail,
-        content: this.commentContent
+      if (this.userInfo == null) {
+        _tiper.warn('请先登录')
+      } else {
+        let param = {
+          blogId: this.blogId,
+          parentCommentId: -1,
+    
+          content: this.commentContent,
+        
+        }
+        this.request
+          .postJson(this.blogapi.postComment, param)
+          .then((res) => {
+            if (res.code == 0) {
+              this.$emit('fatherMethod')
+              this.commentContent = ''
+            }
+          })
+          .catch((error) => {})
       }
-      this.request
-        .postJson(this.blogapi.postComment, param)
-        .then((res) => {
-          if (res.code == 0) {
-            this.$emit('fatherMethod')
-            this.commentContent = ''
-            this.commentNickname = ''
-            this.commentEmail = ''
-          }
-        })
-        .catch((error) => {})
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getSysUserInfo()
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
