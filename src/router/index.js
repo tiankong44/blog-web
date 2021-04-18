@@ -13,17 +13,28 @@ const album = () => import("@/components/front/album.vue");
 const about = () => import("@/components/front/about.vue");
 // 后台管理
 const adminHome = () => import("@/components/admin/admin.vue");
-const blogManagement = () => import("@/components/admin/blogManagement.vue");
-const blogAdd = () => import("@/components/admin/blogAdd.vue");
-const blogEdit = () => import("@/components/admin/blogEdit.vue");
+const blogManagement = () => import("@/components/admin/blogManage/blogManagement.vue");
+const blogAdd = () => import("@/components/admin/blogManage/blogAdd.vue");
+const blogEdit = () => import("@/components/admin/blogManage/blogEdit.vue");
+const tagManagement = () => import("@/components/admin/tagManage/tagManagement.vue");
+const albumManagement = () => import("@/components/admin/albumManage/albumManagement.vue");
+const albumManage = () => import("@/components/admin/albumManage/albumManage.vue");
+const albumView = () => import("@/components/admin/albumManage/albumView.vue");
 const originalPush = Router.prototype.push
 
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 const router = new Router({
-  mode: "history",
-  base: "/",
+ 
+  //本地
+  mode: "hash",
+  base: "/myblog",
+
+  // 打包
+  // base: "/",
+ // mode: "history",
+
   routes: [
     {
       path: "/blogHome",
@@ -108,8 +119,26 @@ const router = new Router({
           name: "blogAdd",
           component: blogAdd,
         },
-
-
+        {
+          path: "/tagManagement",
+          name: "tagManagement",
+          component: tagManagement,
+        },
+        {
+          path: "/albumManagement",
+          name: "albumManagement",
+          component: albumManagement,
+        },
+        {
+          path: "/albumView",
+          name: "albumView",
+          component: albumView,
+        },
+        {
+          path: "/albumManage",
+          name: "albumManage",
+          component: albumManage,
+        },
       ],
     },
     // {

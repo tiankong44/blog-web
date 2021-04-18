@@ -9,14 +9,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/index',
+    // publicPath: './',
+    // proxy: "http://127.0.0.1:8090/myblog",
     proxyTable: {
-      '/blog': {
+      '/myblog': {
         // target: 'http://116.62.178.5:8090', //源地址
          target: 'http://127.0.0.1:8090', //源地址
         changeOrigin: true, //改变源
         pathRewrite: {
           // '^/blog': 'http://116.62.178.5:8090' //路径重写
-           '^/blog': 'http://127.0.0.1:8090' //路径重写
+           '^/myblog': '/myblog' //路径重写
         }
       }
     },

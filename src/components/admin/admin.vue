@@ -1,43 +1,45 @@
 <!-- 导航栏 -->
 <template>
-  <div class="">
-    <div class="header">
-      <el-row class="" :gutter="10">
-        <el-menu class="el-menu-demo header-padding" mode="horizontal" @select="handleSelect" background-color="#000000" text-color="#fff" active-text-color="#0FD03F">
-          <el-col :span="5">
-            <div class="location-center hide">111</div>
-          </el-col>
+  <body background="http://images.tiankong44.vip/email-pattern.png">
+    <div class="">
+      <div class="header">
+        <el-row class="" :gutter="10">
+          <el-menu class="el-menu-demo header-padding" mode="horizontal" @select="handleSelect" background-color="#000000" text-color="#fff" active-text-color="#0FD03F">
+            <el-col :span="5">
+              <div class="location-center hide">111</div>
+            </el-col>
 
-          <el-menu-item index="blogManage" class="header-text">博客管理</el-menu-item>
+            <el-menu-item index="blogManage" class="header-text">博客管理</el-menu-item>
 
-          <el-menu-item index="tagManage" class="header-text">标签管理</el-menu-item>
+            <el-menu-item index="tagManage" class="header-text">标签管理</el-menu-item>
 
-          <el-menu-item index="albumManage" class="header-text">相册管理</el-menu-item>
-          <el-menu-item index="galleryManage" class="header-text">图床管理</el-menu-item>
-          <!-- <el-menu-item index="album" class="header-text">相册</el-menu-item> -->
+            <el-menu-item index="albumManage" class="header-text">相册管理</el-menu-item>
+            <el-menu-item index="galleryManage" class="header-text">图床管理</el-menu-item>
+            <!-- <el-menu-item index="album" class="header-text">相册</el-menu-item> -->
 
-          <!-- <el-menu-item index="about" class="header-text">关于我</el-menu-item> -->
-          <el-col :span="4">
-            <div class="hide">1</div>
-          </el-col>
+            <!-- <el-menu-item index="about" class="header-text">关于我</el-menu-item> -->
+            <el-col :span="4">
+              <div class="hide">1</div>
+            </el-col>
 
-          <el-submenu class="nav-user-avatar" index="user" v-if="userVo != null">
-            <template slot="title">
-              <el-avatar :src="userVo.avatar"></el-avatar>
-              {{ userVo.nickname }}
-            </template>
+            <el-submenu class="nav-user-avatar" index="user" v-if="userVo != null">
+              <template slot="title">
+                <el-avatar :src="userVo.avatar"></el-avatar>
+                {{ userVo.nickname }}
+              </template>
 
-            <el-menu-item index="personalInformation">资料修改</el-menu-item>
-            <el-menu-item index="logout" @click="logout">退出</el-menu-item>
-          </el-submenu>
+              <el-menu-item index="personalInformation">资料修改</el-menu-item>
+              <el-menu-item index="logout" @click="logout">退出</el-menu-item>
+            </el-submenu>
 
-          <el-menu-item index="login" class="nav-user-text" @click="toLogin" v-if="userVo == null">请登录</el-menu-item>
-        </el-menu>
-        <router-view :key="$route.title" v-if="!isShow" />
-      </el-row>
+            <el-menu-item index="login" class="nav-user-text" @click="toLogin" v-if="userVo == null">请登录</el-menu-item>
+          </el-menu>
+          <router-view :key="$route.title" v-if="!isShow" />
+        </el-row>
+      </div>
+      <myfooter></myfooter>
     </div>
-    <myfooter></myfooter>
-  </div>
+  </body>
 </template>
 
 <script>
@@ -51,7 +53,13 @@ export default {
   components: { myfooter },
   data() {
     //这里存放数据
-    return { title: '', homeSrc: '/admin', config: { blogManage: 'blogManagement', tagManage: '/tagManage', albumManage: '/albumManage', galleryManage: '/galleryManage' }, userVo: {}, isShow: false }
+    return {
+      title: '',
+      homeSrc: '/admin',
+      config: { blogManage: 'blogManagement', tagManage: 'tagManagement', albumManage: 'albumManagement', galleryManage: 'galleryManagement' },
+      userVo: {},
+      isShow: false
+    }
   },
   //监听属性 类似于data概念
   computed: {},

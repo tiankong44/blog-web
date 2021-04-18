@@ -85,6 +85,7 @@
             </div>
           </el-col>
         </el-row>
+        <br>
         <div align="center">
           <el-button-group>
             <el-button v-on:click="firstPage()">首页</el-button>
@@ -120,7 +121,7 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import { _tiper } from '@/common/utils/ui.js'
-import blogPreView from '@/components/admin/blogPreView'
+import blogPreView from '@/components/admin/blogManage/blogPreView'
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: { blogPreView },
@@ -137,7 +138,7 @@ export default {
         prePage: 0,
         pageNum: 1,
         nextPage: 2,
-        pageSize: 10,
+        pageSize: 15,
         size: 0,
         total: 0
       },
@@ -280,4 +281,4 @@ export default {
   activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style src="../css/main.css" scoped>
+<style src="../../css/main.css" scoped>

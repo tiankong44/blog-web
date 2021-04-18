@@ -280,8 +280,38 @@
   height: 400px;
 }
 
-.albums {}
+.images {
+  height: 300px;
+}
 
+.image-album {
+  height: 250px;
+  cursor: pointer;
+  margin: 5px;
+  display: inline-block;
+}
+
+.image-buttom-group {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cardBorder {
+  border-color:#1c97f5;
+  /* border-width: 3px; */
+  /* margin: -17px -7px -17px -7px; */
+}
+.big-icon{
+  width: 300px;
+  height: 300px;
+  font-size: 3000%;
+}
+.mid-icon{
+  width: 300px;
+  height: 300px;
+  font-size: 2000%;
+  color: #5B5C5C;
+}
 .gallery {
   width: 90px;
   height: 70px;
@@ -301,6 +331,7 @@
 
 .pull-right {
   float: right !important;
+
 }
 
 /* 置左*/
@@ -341,6 +372,7 @@
   cursor: pointer;
 }
 
+
 /* ==============
 	自定义页面样式
    ============== */
@@ -354,5 +386,10 @@ body {
   line-height: 1.5;
   /* background: url("../images/email-pattern.png") */
 }
+
+
+/* ==============
+	重写elementUI样式
+   ============== */
 
 /* 网站头部 */

@@ -1,57 +1,58 @@
 <!--  -->
-<template> <body background="static\images\email-pattern.png">
-  <div class="block">
-    <br />
-    <br />
-    <el-row :gutter="30">
-      <el-col :span="6"><div class="hide">111</div></el-col>
-      <el-col :span="11">
-        <el-timeline>
-          <el-timeline-item :timestamp="blog.date" placement="top" v-for="blog in blogMap.data" :key="blog.id">
-            <el-card>
-              <div v-for="item in blog.list" :key="item.id">
-                <el-card :body-style="bodyStyle">
-                  <router-link class="blog-title" :to="{ name: 'blogDetail', params: { id: item.id } }">
-                    <h6 style=" margin: -1px 0px -2px 0px;">{{ item.title }}</h6>
-                  </router-link>
-                  <!-- <h4>{{ item.title }}</h4>  -->
-                  <p style=" margin: 16px 0px -3px 0px;">{{ item.user.nickname }} 更新于 {{ item.updateTime }}</p>
-                </el-card>
-                <br v-if="blog.list.length > 1" />
-              </div>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-        <div align="center">
-          <el-button-group>
-            <el-button v-on:click="firstPage()">首页</el-button>
-            <el-button icon="el-icon-arrow-left" v-on:click="prePage()">上一页</el-button>
-            <el-button v-on:click="nextPage()">
-              下一页
-              <i class="el-icon-arrow-right el-icon--right"></i>
-            </el-button>
+<template>
+  <body background="static\images\email-pattern.png">
+    <div class="block">
+      <br />
+      <br />
+      <el-row :gutter="30">
+        <el-col :span="6"><div class="hide">111</div></el-col>
+        <el-col :span="11">
+          <el-timeline>
+            <el-timeline-item :timestamp="blog.date" placement="top" v-for="blog in blogMap.data" :key="blog.id">
+              <el-card>
+                <div v-for="item in blog.list" :key="item.id">
+                  <el-card :body-style="bodyStyle">
+                    <router-link class="blog-title" :to="{ name: 'blogDetail', params: { id: item.id } }">
+                      <h6 style="margin: -1px 0px -2px 0px">{{ item.title }}</h6>
+                    </router-link>
+                    <!-- <h4>{{ item.title }}</h4>  -->
+                    <p style="margin: 16px 0px -3px 0px">{{ item.user.nickname }} 更新于 {{ item.updateTime }}</p>
+                  </el-card>
+                  <br v-if="blog.list.length > 1" />
+                </div>
+              </el-card>
+            </el-timeline-item>
+          </el-timeline>
+          <div align="center">
+            <el-button-group>
+              <el-button v-on:click="firstPage()">首页</el-button>
+              <el-button icon="el-icon-arrow-left" v-on:click="prePage()">上一页</el-button>
+              <el-button v-on:click="nextPage()">
+                下一页
+                <i class="el-icon-arrow-right el-icon--right"></i>
+              </el-button>
 
-            <el-button v-on:click="lastPage()" class="lastPage">尾页</el-button>
-          </el-button-group>
-          <div align="center" style="font-size: 15px; opacity: 0.7">
-            <span>
-              <p>
-                当前第
-                <span class="green-text">{{ page.pageNum }}</span>
-                页，总
-                <span class="green-text">{{ page.size }}</span>
-                页，共
-                <span class="green-text">{{ page.total }}</span>
-                条记录
-              </p>
-            </span>
+              <el-button v-on:click="lastPage()" class="lastPage">尾页</el-button>
+            </el-button-group>
+            <div align="center" style="font-size: 15px; opacity: 0.7">
+              <span>
+                <p>
+                  当前第
+                  <span class="green-text">{{ page.pageNum }}</span>
+                  页，总
+                  <span class="green-text">{{ page.size }}</span>
+                  页，共
+                  <span class="green-text">{{ page.total }}</span>
+                  条记录
+                </p>
+              </span>
+            </div>
           </div>
-        </div>
-        <el-backtop :right="80" :bottom="80"></el-backtop>
-      </el-col>
-    </el-row>
-  </div>
-           </body>
+          <el-backtop :right="80" :bottom="80"></el-backtop>
+        </el-col>
+      </el-row>
+    </div>
+  </body>
 </template>
 
 <script>

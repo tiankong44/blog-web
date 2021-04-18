@@ -13,40 +13,40 @@
         </div>
         <br />
 
-        <el-form ref="form" label-width="80px" size="large" :rules="rules">
-          <el-form-item label="标题">
-            <el-input placeholder="标题" v-model="title" @blur="checkTitle">
+        <el-form ref="form" label-width="80px" size="large" :rules="rules" :model="form">
+          <el-form-item label="标题" prop="title">
+            <el-input placeholder="标题" v-model="form.title" @blur="checkTitle">
               <!-- <template slot="prepend">标题</template> -->
             </el-input>
           </el-form-item>
           <br />
           <el-form-item label="首图">
-            <el-input placeholder="首图地址" v-model="firstPic"></el-input>
+            <el-input placeholder="首图地址" v-model="form.firstPic"></el-input>
           </el-form-item>
           <br />
-          <el-form-item label="正文">
-            <mavon-editor v-model="content" :ishljs="true" placeholder="在此编辑正文..." :navigation="true" :toolbars="toolbars" @imgAdd="handleEditorImgAdd" ref="md"></mavon-editor>
+          <el-form-item label="正文" prop="content">
+            <mavon-editor v-model="form.content" :ishljs="true" placeholder="在此编辑正文..." :navigation="true" :toolbars="toolbars" @imgAdd="handleEditorImgAdd" ref="md"></mavon-editor>
           </el-form-item>
           <br />
 
-          <el-form-item label="描述">
-            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 10 }" placeholder="添加描述" v-model="description"><template slot="prepend">描述</template></el-input>
+          <el-form-item label="描述" prop="description">
+            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 10 }" placeholder="添加描述" v-model="form.description"><template slot="prepend">描述</template></el-input>
           </el-form-item>
 
           <br />
-          <el-form-item label="标签">
-            <el-select v-model="tagValues" multiple placeholder="请选择" style="width: 200px" size="medium" multiple-limit="3" filterable allow-create default-first-option>
+          <el-form-item label="标签" prop="tagValues">
+            <el-select v-model="form.tagValues" multiple placeholder="请选择" style="width: 200px" size="medium" multiple-limit="3" filterable allow-create default-first-option>
               <el-option v-for="tag in tags" :key="tag.value" :label="tag.label" :value="tag.value"></el-option>
             </el-select>
           </el-form-item>
           <br />
           <el-form-item label="功能">
-            <el-switch v-model="appreciation" active-text="赞赏" inactive-text=""></el-switch>
-            <el-switch v-model="commentabled" active-text="评论" inactive-text=""></el-switch>
-            <el-switch v-model="published" active-text="发布" inactive-text=""></el-switch>
+            <el-switch v-model="form.appreciation" active-text="赞赏" inactive-text=""></el-switch>
+            <el-switch v-model="form.commentabled" active-text="评论" inactive-text=""></el-switch>
+            <el-switch v-model="form.published" active-text="发布" inactive-text=""></el-switch>
           </el-form-item>
           <br />
-          <el-button type="success" class="pull-right" @click="updateBlog()">提交</el-button>
+          <el-button type="success" class="pull-right" @click="submitForm(form)">提交</el-button>
         </el-form>
       </el-col>
     </el-row>
@@ -63,15 +63,24 @@ export default {
   data() {
     //这里存放数据
     return {
-      content: '',
-      title: '',
+      rules: {
+        title: [{ required: true, message: '文章标题不能为空！', trigger: 'blur' }],
+        description: [{ required: true, message: '请添加描述', trigger: 'blur' }],
+        content: [{ required: true, message: '请添加正文内容', trigger: 'blur' }],
+        tagValues: [{ required: true, message: '请至少选择一个标签', trigger: 'change' }]
+      },
+      form: {
+        title: '',
+        firstPic: '',
+        description: '',
+        content: '',
+        appreciation: true,
+        commentabled: true,
+        published: true,
+        tagValues: []
+      },
+
       tags: [],
-      tagValues: [],
-      appreciation: true,
-      commentabled: true,
-      published: true,
-      description: '',
-      firstPic: '',
       userVo: {},
       blogId: '',
       toolbars: {
@@ -135,73 +144,76 @@ export default {
         .postJson(this.blogapi.getAdminBlogDetail, param)
         .then((res) => {
           if (res.code == 0) {
-            this.title = res.data.title
-            this.content = res.data.content
-            this.firstPic = res.data.firstPicture
-            this.description = res.data.description
+            this.form.title = res.data.title
+            this.form.content = res.data.content
+            this.form.firstPic = res.data.firstPicture
+            this.form.description = res.data.description
             if (res.data.published == 1) {
-              this.published = true
+              this.form.published = true
             } else {
-              this.published = false
+              this.form.published = false
             }
             if (res.data.recommend == 1) {
-              this.recommend = true
+              this.form.recommend = true
             } else {
-              this.recommend = false
+              this.form.recommend = false
             }
             if (res.data.appreciation == 1) {
-              this.appreciation = true
+              this.form.appreciation = true
             } else {
-              this.appreciation = false
+              this.form.appreciation = false
             }
             let checkValues = res.data.tags
             console.log(checkValues)
             checkValues.forEach((element) => {
-              this.tagValues.push(element.id)
+              this.form.tagValues.push(element.id)
             })
           }
         })
         .catch((error) => {})
     },
-    updateBlog(formName) {
-      this.$refs[formName].validate((valid) => {
+
+    submitForm() {
+      this.$refs.form.validate((valid) => {
         if (valid) {
-          let ids = ''
-          for (let index = 0; index < this.tagValues.length; index++) {
-            ids = ids + this.tagValues[index] + ','
-            // const element = array[index]
-          }
-          if (ids.length > 0) {
-            ids = ids.substring(0, ids.length - 1)
-          }
-          console.log(ids)
-          let param = {
-            blogId: this.blogId,
-            title: this.title,
-            firstPic: this.firstPic,
-            content: this.content,
-            description: this.description,
-            tagIds: ids,
-            published: this.published,
-            commentabled: this.commentabled,
-            appreciation: this.appreciation
-          }
-          this.request
-            .postJson(this.blogapi.updateBlog, param)
-            .then((res) => {
-              if (res.code == 0) {
-                this.$router.push('/blogManagement')
-                _tiper.success(res.desc)
-              } else if (res.code == 1) {
-                _tiper.error(res.desc)
-              }
-            })
-            .catch((error) => {})
+          this.updateBlog()
         } else {
-          console.log('error submit!!')
-          return false
+          _tiper.error('文章发布失败')
         }
       })
+    },
+    updateBlog() {
+      let ids = ''
+      for (let index = 0; index < this.form.tagValues.length; index++) {
+        ids = ids + this.form.tagValues[index] + ','
+        // const element = array[index]
+      }
+      if (ids.length > 0) {
+        ids = ids.substring(0, ids.length - 1)
+      }
+      console.log(ids)
+      let param = {
+        blogId: this.blogId,
+        title: this.form.title,
+        firstPic: this.form.firstPic,
+        content: this.form.content,
+        description: this.form.description,
+        tagIds: ids,
+        published: this.form.published,
+        commentabled: this.form.commentabled,
+        appreciation: this.form.appreciation
+      }
+      this.request
+        .postJson(this.blogapi.updateBlog, param)
+        .then((res) => {
+          if (res.code == 0) {
+            this.$router.push('/blogManagement')
+            _tiper.success(res.desc)
+          } else if (res.code == 1) {
+            _tiper.error(res.desc)
+          }
+        })
+        .catch((error) => {})
     },
     handleEditorImgAdd(pos, $file) {
       var formData = new FormData()
@@ -220,12 +232,6 @@ export default {
           _tiper.error(res.desc)
         }
       })
-    },
-    checkTitle() {
-      let t = this.title.trim()
-      if (t.length == 0) {
-        _tiper.error('标题不能为空')
-      }
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -246,5 +252,5 @@ export default {
 }
 </script>
 <style scoped>
-@import '../css/main.css';
+@import '../../css/main.css';
 </style>
