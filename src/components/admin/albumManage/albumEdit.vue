@@ -107,14 +107,19 @@ export default {
       let param = {
         albumId: this.albumId
       }
-
       this.request
         .postJson(this.blogapi.justAlbumDetail, param)
         .then((res) => {
           if (res.code == 0) {
             this.form.albumName = res.data.albumName
             this.form.mainPicture = res.data.mainPicture
-            this.form.type = res.data.type
+            // this.form.type = res.data.type
+            if (2 == res.data.type) {
+              this.form.type = '2'
+            }
+            if (1 == res.data.type) {
+              this.form.type = '1'
+            }
             this.form.remark = res.data.remark
           } else if (res.code == 1) {
             _tiper.error(res.desc)
@@ -125,9 +130,9 @@ export default {
     submitForm() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.addAlbum()
+          this.updateAlbum()
         } else {
-          _tiper.error('新增相册失败')
+          _tiper.error('修改相册失败')
         }
       })
     },

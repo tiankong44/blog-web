@@ -83,8 +83,55 @@
                       </el-dialog>
                     </div>
                     <div class="edit">
-                      <el-dialog :visible.sync="imageEditShow" center width="80%" v-if="imageId == image.id" >
-                        <editImage></editImage>
+                      <el-dialog :visible.sync="imageEditShow" title="图片修改" center width="80%" v-if="imageId == image.id">
+                        <div style="color: red">*图片修改可能会压缩图片质量哦！请谨慎修改！</div>
+                        <el-row :gutter="20">
+                          <el-col :span="14">
+                            <div class="" style="height: 650px">
+                              <vueCropper
+                                ref="cropper"
+                                :img="url"
+                                :outputSize="option.size"
+                                :outputType="option.outputType"
+                                :info="option.info"
+                                :full="option.full"
+                                :canMove="option.canMove"
+                                :canMoveBox="option.canMoveBox"
+                                :original="option.original"
+                                :autoCrop="option.autoCrop"
+                                :autoCropWidth="option.autoCropWidth"
+                                :autoCropHeight="option.autoCropHeight"
+                                :fixedBox="option.fixedBox"
+                                :centerBox="option.centerBox"
+                                :canScale="option.canScale"
+                                :infoTrue="option.infoTrue"
+                                @real-time="realTime"
+                              ></vueCropper>
+                            </div>
+                          </el-col>
+                          <el-col :span="10">
+                            <div class="pull-center">
+                              <div :style="{ width: previews.w + 'px', height: previews.h + 'px', overflow: 'hidden', margin: '0', zoom: 400 / previews.w }">
+                                <div :style="previews.div">
+                                  <img :src="previews.url" :style="previews.img" />
+                                </div>
+                              </div>
+                            </div>
+                            <br />
+                            <div v-if="percentShow">
+                              <div style="color:red">*图片上传中，请耐心等待！</div>
+                              <el-progress :text-inside="true" :stroke-width="24" :percentage="percent" status="success"></el-progress>
+                            </div>
+                            <div class="pull-center">
+                              <el-button size="mini" type="danger" plain icon="el-icon-zoom-in" @click="imageChangeScale(1)">放大</el-button>
+                              <el-button size="mini" type="danger" plain icon="el-icon-zoom-out" @click="imageChangeScale(-1)">缩小</el-button>
+                              <el-button size="mini" type="danger" plain @click="rotateLeft">↺ 左旋转</el-button>
+                              <el-button size="mini" type="danger" plain @click="rotateRight">↻ 右旋转</el-button>
+
+                              <el-button class="pull-right" type="success" icon="el-icon-upload" size="mini" @click="editConfirm(image)">确认修改</el-button>
+                            </div>
+                          </el-col>
+                        </el-row>
                       </el-dialog>
                     </div>
                     <div class="pull-center image-buttom-group">
@@ -119,11 +166,12 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import { _tiper } from '@/common/utils/ui.js'
 import uploadImage from '@/components/admin/albumManage/uploadImage'
-import editImage from '@/components/admin/albumManage/albumImageEdit'
+import axios from 'axios'
+// import editImage from '@/components/admin/albumManage/albumImageEdit'
 export default {
   //import引入的组件需要注入到对象中才能使用
-  props: ['albumId'],
-  components: { uploadImage, editImage },
+  props: [],
+  components: { uploadImage, axios },
   data() {
     //这里存放数据
     return {
@@ -141,6 +189,26 @@ export default {
       imageId: '',
       bigImageShow: false,
       imageEditShow: false,
+      option: {
+        img: this.url,
+        info: true,
+        outputSize: 1, //剪切后的图片质量（0.1-1）
+        full: false, //输出原图比例截图 props名full
+        outputType: 'png',
+        canMove: true,
+        canScale: true,
+        original: false,
+        canMoveBox: true,
+        autoCrop: true,
+        autoCropWidth: 300,
+        autoCropHeight: 300,
+        fixedBox: false,
+        centerBox: true,
+        infoTrue: true
+      },
+      previews: {},
+      percent: 0,
+      percentShow: false,
       pickerOptions: {
         shortcuts: [
           {
@@ -242,32 +310,38 @@ export default {
       }
     },
     deleteImage() {
-      let id = ''
-      if (this.chooseList.length > 0) {
-        for (let i = 0; i < this.chooseList.length; i++) {
-          id = id + this.chooseList[i] + ','
-        }
-        id = id.substring(0, id.length - 1)
+      this.$confirm('确定删除吗？删除后相册里的照片也会消失哦！不过可以在回收站里面找回！', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'error'
+      }).then(() => {
+        let id = ''
+        if (this.chooseList.length > 0) {
+          for (let i = 0; i < this.chooseList.length; i++) {
+            id = id + this.chooseList[i] + ','
+          }
+          id = id.substring(0, id.length - 1)
 
-        let param = {
-          photos: id,
-          albumId: this.albumId
+          let param = {
+            photos: id,
+            albumId: this.albumId
+          }
+          this.request
+            .postJson(this.blogapi.albumPhotoDelete, param)
+            .then((res) => {
+              if (res.code == 0) {
+                this.chooseList = []
+                this.albumDetail()
+                _tiper.success(res.desc)
+              } else if (res.code == 1) {
+                _tiper.error(res.desc)
+              }
+            })
+            .catch((error) => {})
+        } else {
+          _tiper.error('请至少选择一张图片!')
         }
-        this.request
-          .postJson(this.blogapi.albumPhotoDelete, param)
-          .then((res) => {
-            if (res.code == 0) {
-              this.chooseList = []
-              this.albumDetail()
-              _tiper.success(res.desc)
-            } else if (res.code == 1) {
-              _tiper.error(res.desc)
-            }
-          })
-          .catch((error) => {})
-      } else {
-        _tiper.error('请至少选择一张图片!')
-      }
+      })
     },
     uploadImages() {
       this.showPhotoUpload = true
@@ -285,6 +359,9 @@ export default {
     imageEdit(image) {
       this.imageId = image.id
       this.imageEditShow = true
+
+      this.url = image.path
+      console.log(this.url)
     },
     imageDel(image) {
       this.imageId = image.id
@@ -306,6 +383,77 @@ export default {
           }
         })
         .catch((error) => {})
+    },
+    realTime(data) {
+      this.previews = data
+    },
+    //图片缩放
+    imageChangeScale(num) {
+      num = num || 1
+      console.log(num)
+      this.$refs.cropper[0].changeScale(num)
+    },
+    //向左旋转
+    rotateLeft() {
+      this.$refs.cropper[0].rotateLeft()
+    },
+    //向右旋转
+    rotateRight() {
+      this.$refs.cropper[0].rotateRight()
+    },
+    editConfirm() {
+      this.percentShow = true
+
+      let form = new FormData()
+      // 输出
+      this.$refs.cropper[0].getCropBlob((data) => {
+        // let img = window.URL.createObjectURL(data)
+        // this.model = true
+        // this.modelSrc = img
+        form.append('file', data)
+        form.append('imageId', this.imageId)
+
+        // this.request
+        //   .postJson(this.blogapi.albumPhotoEdit, form)
+        //   .then((res) => {
+        //     if (res.code == 0) {
+        //       _tiper.success(res.desc)
+        //       this.albumDetail()
+        //     } else if (res.code == 1) {
+        //       _tiper.error(res.desc)
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log("出错了")
+        //   })
+
+        axios
+          .post(this.blogapi.albumPhotoEdit, form, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            onUploadProgress: (progressEvent) => {
+              if (progressEvent.lengthComputable) {
+                var complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0
+                this.percent = complete
+                if (complete >= 100) {
+                  // this.percentShow = false
+                  // this.percent = 0 // 重新置0
+                }
+              }
+            }
+          })
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.code == 0) {
+              this.percentShow = false
+              _tiper.success(res.data.desc)
+              this.albumDetail()
+            } else if (res.data.code == 1) {
+              _tiper.error(res.data.desc)
+            }
+          })
+      })
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）

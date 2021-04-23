@@ -41,10 +41,12 @@ const blogapi = {
   albumAdd:'/myblog/admin/album/add',
   albumDelete:'/myblog/admin/album/delete',
   albumDetail:'/myblog/admin/album/albumDetail',
+  albumEdit:'/myblog/admin/album/albumEdit',
   queryAlbumDetail:'/myblog/admin/album/queryAlbumDetail',
   albumPhotoDelete:'/myblog/admin/gallery/deleteAlbumGallery',
   justAlbumDetail:'/myblog/admin/album/justAlbumDetail',
   albumPhotosUpload:'/myblog/admin/album/albumPhotosUpload',
+  albumPhotoEdit:'/myblog/admin/album/albumPhotoEdit',
 };
 
 export { blogapi };

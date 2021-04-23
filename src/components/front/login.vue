@@ -59,8 +59,12 @@ export default {
   methods: {
     doLogin() {
       var target = this.$route.params.url
+
+      console.log(target)
       if (target != null && target != '') {
-        target = target.replace('http://127.0.0.1', '')
+        var replace="http://127.0.0.1:8080/#/"  // 本地
+         // var replace="http://116.62.178.5/"   阿里云
+        target = target.replace(replace, '')
       } else {
         target = '/blogHome'
       }

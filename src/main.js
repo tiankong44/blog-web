@@ -18,7 +18,9 @@ import 'mavon-editor/dist/css/index.css'
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 
+import vueCropper from 'vue-cropper' 
 
+Vue.use(vueCropper)
 
 Vue.use(VueDirectiveImagePreviewer)
 // import Prism from 'prismjs';

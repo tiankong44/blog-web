@@ -32,8 +32,8 @@ const router = new Router({
   base: "/myblog",
 
   // 打包
-  // base: "/",
- // mode: "history",
+//   base: "/",
+//  mode: "history",
 
   routes: [
     {
