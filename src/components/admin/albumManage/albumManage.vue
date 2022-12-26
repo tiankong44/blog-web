@@ -266,6 +266,7 @@ export default {
         .postJson(this.blogapi.queryAlbumDetail, param)
         .then((res) => {
           if (res.code == 0) {
+            _tiper.success(res.desc)
             this.album = res.data.data
             this.albumName = res.data.albumName
             this.remark = res.data.remark
